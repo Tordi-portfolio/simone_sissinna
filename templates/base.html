@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwiftShip - Fast & Secure Shipping</title>
+    
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --background-color: #f8f9fa;
+            --text-color: #212529;
+            --footer-bg: #343a40;
+            --footer-text: #adb5bd;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navbar .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .navbar .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        footer {
+            background: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        footer .footer-section { flex: 1 1 200px; }
+        footer h4 { color: #fff; margin-bottom: 1rem; }
+        footer a {
+            color: var(--footer-text);
+            text-decoration: none;
+            display: block;
+            margin: 0.3rem 0;
+            transition: color 0.3s;
+        }
+        footer a:hover { color: var(--primary-color); }
+        footer .footer-bottom {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            border-top: 1px solid #555;
+            padding-top: 1rem;
+        }
+
+        .message-container {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 300px;
+        }
+
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            position: relative;
+            animation: slideIn 0.5s ease forwards;
+            opacity: 0.95;
+            transition: opacity 0.5s ease;
+        }
+
+        .alert.success { background-color: #28a745; }
+        .alert.error { background-color: #dc3545; }
+        .alert.info { background-color: #17a2b8; }
+        .alert.warning { background-color: #ffc107; color: #212529; }
+
+        .close-btn {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .chat-link {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            background: #fff;
+            color: var(--text-color);
+            font-weight: 500;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-link:hover {
+            background: var(--primary-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .notif-badge {
+            background: red;
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 2px 7px;
+            border-radius: 50%;
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            font-weight: bold;
+            display: none;
+            box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+            animation: pulseAnim 1.5s infinite;
+        }
+
+        @keyframes pulseAnim {
+            0% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 0, 0, 0.7); }
+            50% { transform: scale(1.2); box-shadow: 0 0 12px rgba(255, 0, 0, 1); }
+            100% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 0, 0, 0.7); }
+        }
+
+        @media (max-width: 768px) {
+            .navbar .nav-links {
+                display: none;
+                flex-direction: column;
+                background: #fff;
+                position: absolute;
+                top: 60px;
+                right: 20px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                width: 200px;
+                padding: 1rem;
+            }
+            .navbar .nav-links.active { display: flex; }
+            .navbar .menu-toggle { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="{% url 'home' %}" class="logo">Keanue Reeves Official Page</a>
+    <div class="nav-links" id="navLinks">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'author' %}">Author</a>
+        <a href="">Services</a>
+        <a href="">Contact</a>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'chat_with_admin' %}">
+                Chat <span class="notif-badge" id="chatBadge"></span>
+            </a>
+
+            {% if user.is_staff %}
+            <a href="{% url 'admin_user_list' %}" class="chat-link">
+                User Chats <span class="notif-badge" id="adminBadge"></span>
+            </a>
+            {% endif %}
+
+            <a href="{% url 'logout' %}">Logout ({{ user.username }})</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </div>
+    <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+</nav>
+
+{% if messages and request.resolver_match.url_name != 'chat_with_admin' and request.resolver_match.url_name != 'admin_chat_view' and request.resolver_match.url_name != 'admin_user_list' %}
+<div class="message-container">
+    {% for message in messages %}
+    <div class="alert {{ message.tags }}">
+        {{ message }}
+        <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<main>{% block content %}{% endblock %}</main>
+
+<footer>
+    <div class="footer-section"><h4>About SwiftShip</h4><p>SwiftShip provides fast, secure, and reliable shipping solutions worldwide.</p></div>
+    <div class="footer-section"><h4>Quick Links</h4><a href="">Home</a><a href="">Services</a><a href="">Contact</a></div>
+    <div class="footer-section"><h4>Contact Us</h4><p>Email: support@swiftship.com</p><p>Phone: +1 234 567 890</p></div>
+    <div class="footer-bottom">&copy; {{ year }} SwiftShip. All rights reserved.</div>
+</footer>
+
+<script>
+function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('active');
+}
+
+setTimeout(() => {
+    document.querySelectorAll('.alert').forEach(alert => {
+        alert.style.opacity = '0';
+        setTimeout(() => alert.style.display = 'none', 500);
+    });
+}, 5000);
+
+function updateUnreadCount() {
+    fetch("{% url 'get_unread_count' %}")
+        .then(response => response.json())
+        .then(data => {
+            const badge = document.getElementById('chatBadge');
+            if (badge) {
+                badge.textContent = data.unread_count;
+                badge.style.display = data.unread_count > 0 ? 'inline-block' : 'none';
+            }
+        })
+        .catch(err => console.error('Error fetching unread count:', err));
+}
+
+function checkForNewMessages() {
+    fetch("{% url 'get_new_messages' %}")
+        .then(response => response.json())
+        .then(data => {
+            const adminBadge = document.getElementById('adminBadge');
+            const chatBadge = document.getElementById('chatBadge');
+
+            if ({{ user.is_staff|yesno:"true,false" }}) {
+                adminBadge.textContent = data.unread_count;
+                adminBadge.style.display = data.unread_count > 0 ? 'inline-block' : 'none';
+            } else {
+                chatBadge.textContent = data.unread_count;
+                chatBadge.style.display = data.unread_count > 0 ? 'inline-block' : 'none';
+            }
+
+            if (data.latest_message) showPopup(data.latest_message);
+        })
+        .catch(err => console.error('Error fetching messages:', err));
+}
+
+function showPopup(message) {
+    const container = document.querySelector('.message-container') || createMessageContainer();
+    const alert = document.createElement('div');
+    alert.className = 'alert info';
+    alert.innerHTML = `${message}<span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>`;
+    container.appendChild(alert);
+
+    setTimeout(() => {
+        alert.style.opacity = '0';
+        setTimeout(() => alert.remove(), 500);
+    }, 5000);
+}
+
+function createMessageContainer() {
+    const container = document.createElement('div');
+    container.className = 'message-container';
+    document.body.appendChild(container);
+    return container;
+}
+
+setInterval(updateUnreadCount, 5000);
+setInterval(checkForNewMessages, 5000);
+document.addEventListener('DOMContentLoaded', () => {
+    updateUnreadCount();
+    checkForNewMessages();
+});
+</script>
+
+</body>
+</html>

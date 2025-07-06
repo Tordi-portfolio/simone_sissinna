@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 style="margin-bottom: 2rem; color: var(--primary-color); text-align: center;">User Messages</h2>
+
+<div class="user-list-container">
+    <ul class="user-list">
+        {% for u in users %}
+            <li>
+                <a href="{% url 'admin_chat_view' u.id %}">
+                    <span class="user-icon">👤</span> {{ u.username }}
+                </a>
+            </li>
+        {% empty %}
+            <li>No users found.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<style>
+.user-list-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.user-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-list li {
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f8f9fa;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.user-list li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.user-list a {
+    display: block;
+    padding: 1rem;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s;
+}
+
+.user-list a:hover {
+    color: var(--primary-color);
+}
+
+.user-icon {
+    font-size: 1.2rem;
+    background: var(--primary-color);
+    color: #fff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+}
+</style>
+
+{% endblock %}

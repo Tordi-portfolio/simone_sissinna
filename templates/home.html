@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="keanu-welcome-page">
+
+    <style>
+        .keanu-welcome-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #ffffff;
+            color: #333333;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+            overflow-y: auto;
+        }
+
+        .keanu-welcome-page .container {
+            max-width: 900px;
+            background: #f9f9f9;
+            padding: 50px 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            animation: keanuFadeIn 1.5s ease;
+            text-align: left;
+        }
+
+        .keanu-welcome-page h1 {
+            color: #ff3c00;
+            font-size: 3rem;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .keanu-welcome-page h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #0d6efd;
+            text-align: center;
+        }
+
+        .keanu-welcome-page p {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            margin-bottom: 18px;
+            color: #444444;
+        }
+
+        .keanu-welcome-page .signature {
+            margin-top: 35px;
+            font-style: italic;
+            color: #777777;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .keanu-welcome-page .btn {
+            margin-top: 35px;
+            display: inline-block;
+            padding: 15px 35px;
+            background: #0d6efd;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 35px;
+            font-size: 1.1rem;
+            transition: background 0.3s ease;
+            text-align: center;
+        }
+
+        .keanu-welcome-page .btn:hover {
+            background: #ff3c00;
+        }
+
+        @keyframes keanuFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .keanu-welcome-page .container {
+                padding: 30px 20px;
+            }
+
+            .keanu-welcome-page h1 {
+                font-size: 2.2rem;
+            }
+
+            .keanu-welcome-page h2 {
+                font-size: 1.2rem;
+            }
+
+            .keanu-welcome-page p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+
+    <div class="container">
+        <h1>Welcome…</h1>
+        <h2>I'm Keanu Reeves, and I'm grateful you're here.</h2>
+        
+        <p>
+            Life has this funny way of moving — sometimes fast, sometimes painfully slow. Over the years, I've come to realize that no matter how far we travel, no matter how many films we make, books we read, or miles we ride on a motorcycle, the journey inward is just as vast and mysterious as the journey outward.
+        </p>
+
+        <p>
+            I created this space — my official website — not to promote, not to sell, not to convince, but to connect. To share. To remind myself, and maybe remind you, that behind every screen, every movie ticket, every article, there's a human being. Someone searching. Someone wondering. Someone, perhaps like you, who believes there's more to life than what meets the eye.
+        </p>
+
+        <p>
+            You might know me from films like *The Matrix*, where we explored the idea that reality may not be what it seems. Or *John Wick*, a story about loss, love, and resilience painted in stylized action. But what you may not always see are the quiet moments between the lines. The real conversations that happen off set. The philosophies we carry with us when the cameras stop rolling.
+        </p>
+
+        <p>
+            This website is a small attempt to peel back that curtain. To let you into my world beyond the red carpets and film sets. Here, I’ll share my passions — motorcycles, music, literature, philosophy, and reflections about the human experience. I’ve learned that life isn’t just about reaching destinations — it’s about noticing the small, fleeting moments along the way.
+        </p>
+
+        <p>
+            When I was young, I found comfort in stories. Books, movies, even quiet conversations under starlit skies. They taught me to dream, to question, to embrace the unknown. Acting gave me a way to embody those stories, to lose myself in characters who, in their own ways, wrestled with love, destiny, and the shadows of the human soul.
+        </p>
+
+        <p>
+            I've traveled the world — sometimes physically, sometimes through the written word. Whether standing on a film set at dawn, or riding through empty highways with only the hum of the engine beneath me, I’ve learned that life speaks to you when you’re still enough to listen.
+        </p>
+
+        <p>
+            People often ask what drives me — what keeps me grounded. It’s not fame, it’s not accolades. It's the connections. The unspoken understanding between strangers. The shared laughter, the quiet empathy, the realization that we're all navigating this unpredictable ride called life — together.
+        </p>
+
+        <p>
+            Here, I want to open a dialogue. Not just about films or public life, but about meaning, creativity, and existence itself. I’ll share upcoming projects, personal writings, maybe some behind-the-scenes stories — but more importantly, I want this place to serve as a small reminder that authenticity matters.
+        </p>
+
+        <p>
+            You’ll find reflections about my motorcycle company, Arch Motorcycles, where engineering meets freedom. Music that shaped me. Books that changed my perspective. And insights into my journey as an artist, a traveler, a seeker.
+        </p>
+
+        <p>
+            You don’t have to be famous to live an extraordinary life. Some of the most profound experiences come quietly — over a cup of coffee, through a heartfelt conversation, or simply watching the sunset and realizing how fleeting this moment truly is.
+        </p>
+
+        <p>
+            This space is not perfect. It’s evolving, like me, like you. You might find raw honesty here. You might disagree with me, or find inspiration. Either way, I welcome it all. That’s the beauty of being human — we get to explore, question, stumble, and hopefully, grow along the way.
+        </p>
+
+        <p>
+            Over the years, I’ve been called many things — actor, artist, musician, even "mysterious" — but beyond the titles, I’m simply someone who believes in compassion, in resilience, and in the quiet, everyday heroism that lives within ordinary people.
+        </p>
+
+        <p>
+            To those of you who’ve supported my work — thank you. To those discovering me for the first time — welcome. And to everyone reading this, know that your presence here matters.
+        </p>
+
+        <p>
+            So whether you’re here for a glimpse behind the scenes, a reflection on life’s mysteries, or maybe to find some inspiration, I hope this space offers you something meaningful.
+        </p>
+
+        <p>
+            Life moves fast, but we don’t always have to. Sometimes, the greatest revelations come when we pause — when we breathe, when we look around and realize that connection is what truly defines us.
+        </p>
+
+        <p>
+            You’re not alone. Your story matters. Your presence, your curiosity, your kindness — they ripple out in ways we can’t always measure.
+        </p>
+
+        <p>
+            So take your time exploring this space. Dive into the stories, share your thoughts, connect with the journey. And no matter where life takes you next, remember… Be excellent to each other.
+        </p>
+
+        <p class="signature">With sincerity,<br>— Keanu Reeves</p>
+
+        <div style="text-align: center;">
+            <a href="#explore" class="btn">Enter the Official Site</a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
