@@ -21,7 +21,6 @@
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        position: relative;
     }
 
     .auth-container input {
@@ -33,6 +32,10 @@
 
     .auth-container .password-wrapper {
         position: relative;
+    }
+
+    .auth-container .password-wrapper input {
+        width: 100%;
     }
 
     .auth-container .toggle-password {
@@ -76,22 +79,19 @@
     <form method="POST">
         {% csrf_token %}
 
-        {{ form.username.label_tag }}  
+        {{ form.full_name.label_tag }}
+        {{ form.full_name }}
+
+        {{ form.username.label_tag }}
         {{ form.username }}
 
-        {{ form.email.label_tag }}  
+        {{ form.email.label_tag }}
         {{ form.email }}
 
         <div class="password-wrapper">
-            {{ form.password1.label_tag }}
-            {{ form.password1 }}
-            <span class="toggle-password" onclick="togglePassword('password1')">Show</span>
-        </div>
-
-        <div class="password-wrapper">
-            {{ form.password2.label_tag }}
-            {{ form.password2 }}
-            <span class="toggle-password" onclick="togglePassword('password2')">Show</span>
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            <span class="toggle-password" onclick="togglePassword()">Show</span>
         </div>
 
         <button type="submit">Register</button>
@@ -101,9 +101,9 @@
 </div>
 
 <script>
-    function togglePassword(fieldId) {
-        const field = document.getElementById('id_' + fieldId);
-        const toggleBtn = field.nextElementSibling;
+    function togglePassword() {
+        const field = document.getElementById('id_password');
+        const toggleBtn = document.querySelector('.toggle-password');
 
         if (field.type === "password") {
             field.type = "text";
