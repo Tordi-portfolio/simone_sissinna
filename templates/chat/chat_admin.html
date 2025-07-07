@@ -11,6 +11,7 @@
     <div class="chatzone-chatbox" id="chatBox">
         {% for msg in messages %}
             <div class="chatzone-bubble {% if msg.sender == request.user %}chatzone-sent{% else %}chatzone-received{% endif %}">
+
                 <div class="chatzone-bubble-content">
                     <div class="chatzone-sender">{{ msg.sender.username }}</div>
 
@@ -31,6 +32,7 @@
 
                     <div class="chatzone-time">{{ msg.timestamp|date:"H:i" }}</div>
                 </div>
+
             </div>
         {% endfor %}
     </div>
@@ -158,13 +160,14 @@
     cursor: pointer;
 }
 
-/* Input Area at Bottom */
+/* Input Area */
 .chatzone-input-area {
     display: flex;
     align-items: center;
     padding: 0.5rem;
     background: #fff;
     border-top: 1px solid #ddd;
+    gap: 0.5rem;
 }
 
 .chatzone-input-container {
@@ -175,6 +178,7 @@
     border-radius: 25px;
     padding: 0.4rem 1rem;
     position: relative;
+    overflow: hidden;
 }
 
 .chatzone-input {
@@ -202,16 +206,17 @@
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    margin-left: 0.5rem;
     font-size: 1rem;
     cursor: pointer;
     display: grid;
     place-items: center;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 0 transparent;
 }
 
 .chatzone-send:hover {
     background: #084dbf;
+    box-shadow: 0 0 10px var(--primary-color);
 }
 
 /* Mobile Responsive */

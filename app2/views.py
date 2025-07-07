@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import GalleryImage, FansCard
 from .forms import GalleryImageForm, FansCardForm
+from django.contrib import messages
 
 # ================= Author Page ===================
 def author(request):
@@ -23,6 +24,7 @@ def upload_gallery_view(request):
         form = GalleryImageForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Successfully uploaded a gallery...')
             return redirect('gallery')
     else:
         form = GalleryImageForm()
@@ -40,6 +42,7 @@ def upload_fanscard(request):
         form = FansCardForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Fanscard uploaded successfully...')
             return redirect('fanscard_list')
     else:
         form = FansCardForm()
@@ -70,6 +73,7 @@ def admin_upload_fanscard(request):
         form = AdminUploadFanCardForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Successfully uploaded  users fan card...')
             return redirect('admin_upload_fanscard')
     else:
         form = AdminUploadFanCardForm()
