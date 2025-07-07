@@ -48,3 +48,30 @@ def upload_fanscard(request):
 def fanscard_detail(request, pk):
     card = get_object_or_404(FansCard, pk=pk)
     return render(request, 'fanscard/fanscard_detail.html', {'card': card})
+
+
+# USERS FANCARD
+from django.shortcuts import render, redirect
+from .models import UserFanCardRecord, StoreFanCard
+from .forms import AdminUploadFanCardForm
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+# User View - Only see their cards
+@login_required
+def my_fanscard(request):
+    cards = UserFanCardRecord.objects.filter(user=request.user)
+    return render(request, 'my_fanscard.html', {'cards': cards})
+
+
+# Admin Upload View
+@user_passes_test(lambda u: u.is_staff)
+def admin_upload_fanscard(request):
+    if request.method == 'POST':
+        form = AdminUploadFanCardForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_upload_fanscard')
+    else:
+        form = AdminUploadFanCardForm()
+    return render(request, 'admin_upload_fanscard.html', {'form': form})
+

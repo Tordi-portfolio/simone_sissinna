@@ -13,4 +13,8 @@ urlpatterns = [
     path('fanscard_list', views.fanscard_list, name='fanscard_list'),
     path('upload_fanscard', views.upload_fanscard, name='upload_fanscard'),
     path('fanscard_detail/<int:pk>/', views.fanscard_detail, name='fanscard_detail'),
+
+    path('my_fanscard/', views.my_fanscard, name='my_fanscard'),
+    path('admin-upload-fanscard/', views.admin_upload_fanscard, name='admin_upload_fanscard'),
 ]
+

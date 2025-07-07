@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="fanrecord-container">
+    <h1 class="fanrecord-title">💎 My Exclusive Fan Cards</h1>
+
+    {% if cards %}
+    <div class="fanrecord-grid">
+        {% for card in cards %}
+        <div class="fanrecord-item">
+
+            <div class="fanrecord-img-wrap">
+                {% if card.delivered_card_image %}
+                <img src="{{ card.delivered_card_image.url }}" alt="Fan Card">
+                {% else %}
+                <div class="fanrecord-placeholder">No Image</div>
+                {% endif %}
+            </div>
+
+            <div class="fanrecord-content">
+                <h3>{{ card.store_card.name }}</h3>
+                
+                <div class="fanrecord-tags">
+                    <span class="fanrecord-tag">{{ card.card_type }}</span>
+                    {% if card.quantity > 0 %}
+                    <span class="fanrecord-quantity">Qty: {{ card.quantity }}</span>
+                    {% endif %}
+                </div>
+
+                <p class="fanrecord-price">₦{{ card.price }}</p>
+
+                {% if card.message %}
+                <div class="fanrecord-message">
+                    <strong>Admin Note:</strong>
+                    <p>{{ card.message }}</p>
+                </div>
+                {% endif %}
+
+                <div class="fanrecord-footer">
+                    <span class="fanrecord-date">Received: {{ card.uploaded_at|date:"M d, Y H:i" }}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% else %}
+    <div class="fanrecord-empty">
+        <p>You have no fan cards yet. Explore the <a href="{% url 'fanscard_list' %}">store</a> to get yours!</p>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.fanrecord-container {
+    max-width: 1300px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.fanrecord-title {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 40px;
+    text-shadow: 0 0 5px rgba(13, 110, 253, 0.3);
+}
+
+.fanrecord-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 30px;
+    padding: 10px;
+}
+
+.fanrecord-item {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.5s ease;
+}
+
+.fanrecord-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.fanrecord-img-wrap {
+    position: relative;
+    height: 220px;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.fanrecord-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.fanrecord-item:hover .fanrecord-img-wrap img {
+    transform: scale(1.05);
+}
+
+.fanrecord-placeholder {
+    font-size: 1.2rem;
+    color: #aaa;
+}
+
+.fanrecord-content {
+    padding: 15px 20px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.fanrecord-content h3 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.fanrecord-tags {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.fanrecord-tag {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    box-shadow: 0 0 6px rgba(13, 110, 253, 0.4);
+}
+
+.fanrecord-quantity {
+    background: #28a745;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    box-shadow: 0 0 6px rgba(40, 167, 69, 0.4);
+}
+
+.fanrecord-price {
+    color: #e63946;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.fanrecord-message {
+    background: #f0f8ff;
+    padding: 10px;
+    border-left: 4px solid var(--primary-color);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.fanrecord-footer {
+    margin-top: auto;
+    text-align: right;
+}
+
+.fanrecord-date {
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.fanrecord-empty {
+    margin-top: 80px;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.fanrecord-empty a {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+    .fanrecord-img-wrap {
+        height: 180px;
+    }
+    .fanrecord-title {
+        font-size: 1.6rem;
+    }
+}
+</style>
+
+{% endblock %}

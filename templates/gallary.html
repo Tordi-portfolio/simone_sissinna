@@ -3,6 +3,16 @@
 {% block content %}
 <h1 class="movie-heading">Complete Keanu Reeves Movie List</h1>
 
+<p class="movies-welcome">
+    Hey everyone, welcome to the official movie list page! I’m truly grateful that you’ve taken the time to visit and explore the body of work I’ve been fortunate to be part of over the years. Whether you’ve known me since the early days, or maybe you’ve just discovered my films recently, I want to say a huge thank you for your support, curiosity, and love for storytelling.
+
+    Acting has been one of the most incredible journeys of my life. From small indie projects to massive productions, every film has taught me something new and connected me with amazing people — both on and off the screen. Movies have a unique way of bringing us together, making us feel, reflect, and sometimes escape reality for a little while. And honestly, it means the world to me that some of these stories have resonated with you.
+
+    On this page, you’ll find a list of films I’ve worked on — some you probably know well, and others you might have missed. If you haven’t seen all of them yet, I hope you’ll take the time to dive in and enjoy the ride. Each movie represents a chapter of my journey — with action, drama, laughter, and the occasional wild adventure thrown in.
+
+    Your continued support motivates me to keep growing, exploring new characters, and telling stories that matter. So, thank you again for being here. Keep watching, keep dreaming, and never stop believing in the power of cinema.
+</p>
+
 <div class="movies-container">
     <ul class="movies-list">
         <li>One Step Away (1985)</li>
@@ -72,6 +82,7 @@
         <li>John Wick: Chapter 4 (2023)</li>
         <li>Sonic the Hedgehog 3 (2024, voice)</li>
         <li>Ballerina (2025, upcoming)</li>
+        <li>Good Fortune (2025, upcoming)</li>
     </ul>
 </div>
 
@@ -94,6 +105,16 @@ body {
     margin: 2rem 1rem;
     color: var(--primary-color);
     font-size: 2rem;
+}
+
+.movies-welcome {
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.7;
+    padding: 0 1rem;
+    text-align: justify;
 }
 
 .movies-container {
@@ -141,6 +162,11 @@ body {
     
     .movie-heading {
         font-size: 1.3rem;
+    }
+
+    .movies-welcome {
+        font-size: 0.95rem;
+        text-align: left;
     }
 
     .movies-list li {

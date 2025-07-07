@@ -3,6 +3,17 @@
 {% block content %}
 <div class="gallery-container">
     <h2>Photo Gallery</h2>
+    
+    <p class="gallery-welcome">
+        Hey there, I’m Keanu Reeves, and I want to personally welcome you to this special part of my website — the official gallery. Life has been a wild, beautiful journey filled with unforgettable moments, incredible people, and experiences I never imagined possible. This space is where I get to share pieces of that journey with you, my fans and supporters, who have stood by me throughout the years.
+
+        Whether it’s behind-the-scenes snapshots from movie sets, candid moments from travels, red carpet appearances, or personal highlights, these images capture fragments of my life that mean a lot to me. Acting has always been more than a job — it’s been a way to connect, to tell stories that move people, and to remind ourselves that we’re all part of something bigger.
+
+        You’ve probably seen me in films like "The Matrix," "John Wick," or even way back in "Speed" and "Point Break." But beyond the movies, there’s a human side — moments of reflection, laughter, friendship, and quiet that often happen away from the spotlight. This gallery brings some of those memories to life, and I hope they resonate with you in some way.
+
+        I believe life is about connections — with our art, our passions, and with each other. If you’ve supported my work, cheered from afar, or simply appreciated the journey, this gallery is for you. It’s my way of saying thank you for being here, for being curious, and for sharing this ride with me. Enjoy exploring these photos, and remember — be kind, stay curious, and never stop chasing your dreams.
+    </p>
+
     <div class="gallery-grid">
         {% for image in images %}
             <div class="gallery-item">
@@ -18,19 +29,38 @@
     text-align: center;
     padding: 20px;
 }
+
+.gallery-container h2 {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.gallery-welcome {
+    max-width: 900px;
+    margin: 0 auto 30px;
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.7;
+    text-align: justify;
+}
+
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 20px;
 }
+
 .gallery-item img {
     width: 100%;
     height: auto;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
+
 .gallery-item p {
     margin-top: 10px;
+    color: #444;
 }
 </style>
 {% endblock %}
