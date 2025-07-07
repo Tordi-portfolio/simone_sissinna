@@ -21,12 +21,29 @@
         display: flex;
         flex-direction: column;
         gap: 1rem;
+        position: relative;
     }
 
     .auth-container input {
         padding: 0.8rem;
         border: 1px solid #ccc;
         border-radius: 5px;
+        width: 100%;
+    }
+
+    .auth-container .password-wrapper {
+        position: relative;
+    }
+
+    .auth-container .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        font-size: 0.9rem;
+        color: #555;
+        user-select: none;
     }
 
     .auth-container button {
@@ -58,11 +75,44 @@
 
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+
+        {{ form.username.label_tag }}  
+        {{ form.username }}
+
+        {{ form.email.label_tag }}  
+        {{ form.email }}
+
+        <div class="password-wrapper">
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+            <span class="toggle-password" onclick="togglePassword('password1')">Show</span>
+        </div>
+
+        <div class="password-wrapper">
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+            <span class="toggle-password" onclick="togglePassword('password2')">Show</span>
+        </div>
+
         <button type="submit">Register</button>
     </form>
 
     <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
 </div>
+
+<script>
+    function togglePassword(fieldId) {
+        const field = document.getElementById('id_' + fieldId);
+        const toggleBtn = field.nextElementSibling;
+
+        if (field.type === "password") {
+            field.type = "text";
+            toggleBtn.textContent = "Hide";
+        } else {
+            field.type = "password";
+            toggleBtn.textContent = "Show";
+        }
+    }
+</script>
 
 {% endblock %}
