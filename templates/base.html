@@ -207,24 +207,26 @@
     <div class="nav-links" id="navLinks">
         <a href="{% url 'home' %}">Home</a>
         <a href="{% url 'author' %}">Author</a>
-        <a href="">Services</a>
-        <a href="">Contact</a>
+        <a href="{% url 'gallary' %}">Movies</a>
+        <a href="{% url 'gallery' %}">Gallery</a>
+        <a href="{% url 'fanscard_list' %}">Fans Card</a>
 
         {% if user.is_authenticated %}
             <a href="{% url 'chat_with_admin' %}">
                 Chat <span class="notif-badge" id="chatBadge"></span>
             </a>
-
-            {% if user.is_staff %}
-            <a href="{% url 'admin_user_list' %}" class="chat-link">
-                User Chats <span class="notif-badge" id="adminBadge"></span>
-            </a>
-            {% endif %}
-
             <a href="{% url 'logout' %}">Logout ({{ user.username }})</a>
         {% else %}
             <a href="{% url 'login' %}">Login</a>
             <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+        {% if user.is_staff %}
+        <p>Admins Only</p>
+        <a href="{% url 'admin_user_list' %}" class="chat-link">
+            User Chats <span class="notif-badge" id="adminBadge"></span>
+        </a>
+        <a href="{% url 'upload_gallery' %}">Upload Gellery</a>
+        <a href="{% url 'upload_fanscard' %}">Upload Fanscard</a>
         {% endif %}
     </div>
     <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
@@ -244,10 +246,10 @@
 <main>{% block content %}{% endblock %}</main>
 
 <footer>
-    <div class="footer-section"><h4>About SwiftShip</h4><p>SwiftShip provides fast, secure, and reliable shipping solutions worldwide.</p></div>
-    <div class="footer-section"><h4>Quick Links</h4><a href="">Home</a><a href="">Services</a><a href="">Contact</a></div>
-    <div class="footer-section"><h4>Contact Us</h4><p>Email: support@swiftship.com</p><p>Phone: +1 234 567 890</p></div>
-    <div class="footer-bottom">&copy; {{ year }} SwiftShip. All rights reserved.</div>
+    <div class="footer-section"><h4>About Keanue Reeves</h4><p>This site provides fast, secure, and reliable chatting with Keanue Reeves the original founder of this site..</p></div>
+    <div class="footer-section"><h4>Quick Links</h4><a href="{% url 'home' %}">Home</a><a href="{% url 'author' %}">Author</a><a href="{% url 'fanscard_list' %}">Buy You Fans Card</a></div>
+    <div class="footer-section"><h4>Contact Us</h4><p>Email: support@KeanueReeves.com</p><p>Phone: +1 234 567 890</p></div>
+    <div class="footer-bottom">&copy; {{ year }} Keavue Reeves. All rights reserved.</div>
 </footer>
 
 <script>

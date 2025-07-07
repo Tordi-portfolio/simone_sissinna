@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="fanscard-upload-container">
+    <h2>🛒 Upload New Fans Card</h2>
+    
+    <form method="POST" enctype="multipart/form-data" class="fanscard-upload-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="upload-btn">Upload Product</button>
+    </form>
+</div>
+
+<style>
+.fanscard-upload-container {
+    max-width: 500px;
+    margin: 60px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.fanscard-upload-container h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #222;
+    margin-bottom: 25px;
+}
+
+.fanscard-upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.fanscard-upload-form label {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.fanscard-upload-form input[type="file"],
+.fanscard-upload-form input[type="text"],
+.fanscard-upload-form input[type="number"],
+.fanscard-upload-form textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+.fanscard-upload-form input:focus,
+.fanscard-upload-form textarea:focus {
+    border-color: #0d6efd;
+}
+
+.upload-btn {
+    padding: 12px;
+    background: linear-gradient(135deg, #0d6efd, #084dbf);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.upload-btn:hover {
+    background: #084dbf;
+}
+
+/* Responsive for Tablets (iPads) */
+@media (max-width: 768px) {
+    .fanscard-upload-container {
+        margin: 40px 20px;
+        padding: 25px;
+    }
+}
+
+/* Responsive for Mobile Phones */
+@media (max-width: 480px) {
+    .fanscard-upload-container h2 {
+        font-size: 1.5rem;
+    }
+    .upload-btn {
+        padding: 10px;
+        font-size: 0.95rem;
+    }
+}
+</style>
+{% endblock %}

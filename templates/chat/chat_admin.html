@@ -1,160 +1,174 @@
 {% extends 'base.html' %}
+
 {% block content %}
 
-<h2 style="margin-bottom: 1rem; color: var(--primary-color); text-align: center; font-size: 1.2rem;">
-    Chat with Admin ({{ admin.username }})
-</h2>
+<h2 class="chatpro-title">💬 Chat with Admin</h2>
 
-<div class="chat-wrapper">
-    <div class="chat-window" id="chatBox">
+<div class="chatpro-wrapper">
+
+    <div class="chatpro-window" id="chatBox">
         {% for msg in messages %}
-            <div class="chat-bubble {% if msg.sender == request.user %}sent{% else %}received{% endif %}">
-                <div class="bubble-content">
-                    <div class="sender">{{ msg.sender.username }}</div>
+            <div class="chatpro-bubble {% if msg.sender == request.user %}chatpro-sent{% else %}chatpro-received{% endif %}">
+                <div class="chatpro-bubble-content">
+                    <div class="chatpro-sender">{{ msg.sender.username }}</div>
 
                     {% if msg.file %}
                         {% if msg.file.url|lower|slice:"-4:" == ".mp4" or msg.file.url|lower|slice:"-5:" == ".webm" %}
-                            <video controls style="max-width: 150px; margin-top: 4px; border-radius: 8px;">
+                            <video controls class="chatpro-media">
                                 <source src="{{ msg.file.url }}" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                         {% else %}
-                            <img src="{{ msg.file.url }}" alt="Image" style="max-width: 150px; margin-top: 4px; border-radius: 8px;">
+                            <img src="{{ msg.file.url }}" alt="Image" class="chatpro-media">
                         {% endif %}
                     {% endif %}
 
                     {% if msg.message %}
-                        <div class="message-text">{{ msg.message }}</div>
+                        <div class="chatpro-message-text">{{ msg.message }}</div>
                     {% endif %}
                     
-                    <div class="time">{{ msg.timestamp|date:"H:i" }}</div>
+                    <div class="chatpro-time">{{ msg.timestamp|date:"H:i" }}</div>
                 </div>
             </div>
         {% endfor %}
     </div>
 
-    <!-- Preview Before Send (Small Size) -->
-    <div class="preview-container" id="previewContainer" style="display: none;">
-        <span id="removePreview" class="remove-preview">✖</span>
+    <div class="chatpro-preview-container" id="previewContainer" style="display: none;">
+        <span id="removePreview" class="chatpro-remove-preview">✖</span>
         <div id="previewContent"></div>
     </div>
 
-    <!-- Chat Input Area -->
-    <form method="POST" enctype="multipart/form-data" class="chat-input-area">
+    <form method="POST" enctype="multipart/form-data" class="chatpro-input-area">
         {% csrf_token %}
-        <div class="input-container">
-            <label for="file-upload" class="file-icon">📎</label>
-            <input type="file" id="file-upload" name="file" accept="image/*,video/*" style="display: none;">
-            <input type="text" name="message" placeholder="Type a message..." style="font-size: 0.9rem;">
+        <div class="chatpro-input-container">
+            <label for="file-upload" class="chatpro-file-icon">📎</label>
+            <input type="file" id="file-upload" name="file" accept="image/*,video/*" hidden>
+            <input type="text" name="message" placeholder="Type your message..." class="chatpro-text-input">
         </div>
-        <button type="submit" class="send-btn">&#9658;</button>
+        <button type="submit" class="chatpro-send-btn">➤</button>
     </form>
+
 </div>
 
 <style>
-.chat-wrapper {
-    max-width: 500px;
+.chatpro-title {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.chatpro-wrapper {
+    max-width: 550px;
     margin: 0 auto;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
+    background: #fff;
     border-radius: 15px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    padding: 0.8rem;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
     height: 75vh;
     overflow: hidden;
 }
 
-.chat-window {
+.chatpro-window {
     flex: 1;
     overflow-y: auto;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
-    padding: 0.8rem;
-    gap: 0.5rem;
-    background: #f0f2f5;
-    border-radius: 12px;
+    gap: 0.6rem;
+    background: #f5f6f8;
 }
 
-.chat-bubble {
-    max-width: 65%;
-    padding: 0.5rem 0.8rem;
+.chatpro-bubble {
+    max-width: 70%;
+    padding: 0.6rem 0.9rem;
     border-radius: 20px;
-    position: relative;
-    animation: fadeIn 0.4s ease;
-    word-wrap: break-word;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
     background: #e9ecef;
-    color: var(--text-color);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     font-size: 0.9rem;
+    word-wrap: break-word;
+    animation: fadeIn 0.3s ease;
 }
 
-.chat-bubble.sent {
+.chatpro-sent {
     align-self: flex-end;
     background: var(--primary-color);
     color: #fff;
 }
 
-.sender {
-    font-weight: bold;
-    font-size: 0.8rem;
+.chatpro-bubble-content {
+    display: flex;
+    flex-direction: column;
 }
 
-.message-text {
-    font-size: 0.9rem;
+.chatpro-sender {
+    font-weight: bold;
+    font-size: 0.8rem;
+    margin-bottom: 3px;
+}
+
+.chatpro-message-text {
     margin-top: 4px;
 }
 
-.time {
+.chatpro-time {
     font-size: 0.7rem;
     text-align: right;
     opacity: 0.6;
 }
 
-.preview-container {
+.chatpro-media {
+    max-width: 160px;
+    margin-top: 5px;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.chatpro-preview-container {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     background: #f1f1f1;
-    padding: 0.3rem 0.5rem;
+    padding: 0.4rem 0.6rem;
     border-radius: 10px;
-    margin-top: 0.5rem;
-    max-width: 180px;
+    margin: 0.5rem;
+    max-width: 200px;
     position: relative;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
 
-.preview-container img, 
-.preview-container video {
-    max-width: 50px;
-    max-height: 50px;
+.chatpro-preview-container img, .chatpro-preview-container video {
+    max-width: 55px;
+    max-height: 55px;
     border-radius: 6px;
     object-fit: cover;
 }
 
-.remove-preview {
+.chatpro-remove-preview {
     position: absolute;
     top: -6px;
     right: -6px;
     background: red;
     color: #fff;
     border-radius: 50%;
-    font-size: 0.7rem;
     width: 16px;
     height: 16px;
     text-align: center;
     line-height: 16px;
+    font-size: 0.7rem;
     cursor: pointer;
 }
 
-.chat-input-area {
+.chatpro-input-area {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background: #fff;
+    border-top: 1px solid #ddd;
 }
 
-.input-container {
+.chatpro-input-container {
     flex: 1;
     display: flex;
     align-items: center;
@@ -162,40 +176,56 @@
     border-radius: 30px;
     padding: 0.4rem 1rem;
     position: relative;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
 }
 
-.input-container input[type="text"] {
+.chatpro-text-input {
     flex: 1;
     border: none;
     outline: none;
     background: transparent;
-    padding-left: 1.8rem;
     font-size: 0.9rem;
+    padding-left: 1.8rem;
 }
 
-.file-icon {
+.chatpro-file-icon {
     position: absolute;
-    left: 10px;
+    left: 12px;
     font-size: 1.1rem;
     cursor: pointer;
     color: var(--primary-color);
 }
 
-.send-btn {
+.chatpro-send-btn {
     background: var(--primary-color);
     color: #fff;
     border: none;
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    display: grid;
-    place-items: center;
+    margin-left: 0.5rem;
     font-size: 1rem;
     cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-.send-btn:hover {
-    box-shadow: 0 0 8px var(--primary-color);
+.chatpro-send-btn:hover {
+    background: #084dbf;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .chatpro-wrapper {
+        margin: 10px;
+        height: 80vh;
+    }
+    .chatpro-bubble {
+        max-width: 85%;
+        font-size: 0.85rem;
+    }
+    .chatpro-text-input {
+        font-size: 0.85rem;
+    }
 }
 </style>
 

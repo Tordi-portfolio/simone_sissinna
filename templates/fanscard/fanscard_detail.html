@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="advanced-product-page">
+
+    <div class="advanced-product-card">
+
+        <div class="advanced-image-section">
+            <img src="{{ card.image.url }}" alt="{{ card.name }}" class="advanced-product-image">
+        </div>
+
+        <div class="advanced-info-section">
+            <h1 class="advanced-product-title">{{ card.name }}</h1>
+            <p class="advanced-product-type">Category: {{ card.card_type }}</p>
+
+            <div class="advanced-price-section">
+                <span class="price-badge">${{ card.price }}</span>
+            </div>
+
+            <p class="advanced-product-quantity">In Stock: {{ card.quantity }}</p>
+
+            <div class="advanced-product-description">
+                <h3>Description</h3>
+                <p>{{ card.description }}</p>
+            </div>
+
+            <a href="{% url 'fanscard_list' %}" class="advanced-back-button">← Back to Store</a>
+        </div>
+
+    </div>
+
+</div>
+<style>
+.advanced-product-page {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.advanced-product-card {
+    display: flex;
+    flex-wrap: wrap;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.advanced-product-card:hover {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.advanced-image-section {
+    flex: 1 1 50%;
+    background: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.advanced-product-image {
+    max-width: 100%;
+    max-height: 450px;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+    cursor: zoom-in;
+}
+
+.advanced-product-image:hover {
+    transform: scale(1.08);
+}
+
+.advanced-info-section {
+    flex: 1 1 50%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.advanced-product-title {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #222;
+}
+
+.advanced-product-type {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.advanced-price-section {
+    margin: 20px 0;
+}
+
+.price-badge {
+    font-size: 1.8rem;
+    color: #fff;
+    background: linear-gradient(135deg, #0d6efd, #084dbf);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.advanced-product-quantity {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 25px;
+}
+
+.advanced-product-description h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.advanced-product-description p {
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.advanced-back-button {
+    margin-top: 20px;
+    display: inline-block;
+    background: transparent;
+    color: #0d6efd;
+    border: 2px solid #0d6efd;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.advanced-back-button:hover {
+    background: #0d6efd;
+    color: #fff;
+}
+
+/* Responsive for iPads, Tablets */
+@media (max-width: 992px) {
+    .advanced-product-card {
+        flex-direction: column;
+    }
+    .advanced-image-section, .advanced-info-section {
+        flex: 1 1 100%;
+    }
+    .advanced-product-image {
+        max-height: 350px;
+    }
+    .advanced-product-title {
+        font-size: 2.2rem;
+    }
+    .price-badge {
+        font-size: 1.6rem;
+    }
+}
+
+/* Responsive for Mobile Phones */
+@media (max-width: 576px) {
+    .advanced-product-page {
+        padding: 15px;
+    }
+    .advanced-product-image {
+        max-height: 250px;
+    }
+    .advanced-product-title {
+        font-size: 1.8rem;
+    }
+    .advanced-product-type,
+    .advanced-product-quantity,
+    .advanced-product-description p {
+        font-size: 0.95rem;
+    }
+    .price-badge {
+        font-size: 1.4rem;
+        padding: 8px 16px;
+    }
+    .advanced-info-section {
+        padding: 20px;
+    }
+}
+</style>
+
+{% endblock %}
