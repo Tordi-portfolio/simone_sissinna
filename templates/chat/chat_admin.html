@@ -6,68 +6,69 @@
     Chat with Admin
 </h2>
 
-<div class="chatpro-wrapper">
+<div class="chatzone-container">
 
-    <div class="chatpro-window" id="chatBox">
+    <div class="chatzone-chatbox" id="chatBox">
         {% for msg in messages %}
-            <div class="chatpro-bubble {% if msg.sender == request.user %}chatpro-sent{% else %}chatpro-received{% endif %}">
-                <div class="chatpro-bubble-content">
-                    <div class="chatpro-sender">{{ msg.sender.username }}</div>
+            <div class="chatzone-bubble {% if msg.sender == request.user %}chatzone-sent{% else %}chatzone-received{% endif %}">
+                <div class="chatzone-bubble-content">
+                    <div class="chatzone-sender">{{ msg.sender.username }}</div>
 
                     {% if msg.file %}
                         {% if msg.file.url|lower|slice:"-4:" == ".mp4" or msg.file.url|lower|slice:"-5:" == ".webm" %}
-                            <video controls class="chatpro-media">
+                            <video controls class="chatzone-media">
                                 <source src="{{ msg.file.url }}" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                         {% else %}
-                            <img src="{{ msg.file.url }}" alt="Image" class="chatpro-media">
+                            <img src="{{ msg.file.url }}" alt="Image" class="chatzone-media">
                         {% endif %}
                     {% endif %}
 
                     {% if msg.message %}
-                        <div class="chatpro-message-text">{{ msg.message }}</div>
+                        <div class="chatzone-text">{{ msg.message }}</div>
                     {% endif %}
 
-                    <div class="chatpro-time">{{ msg.timestamp|date:"H:i" }}</div>
+                    <div class="chatzone-time">{{ msg.timestamp|date:"H:i" }}</div>
                 </div>
             </div>
         {% endfor %}
     </div>
 
-    <!-- Preview Before Send -->
-    <div class="chatpro-preview-container" id="previewContainer" style="display: none;">
-        <span id="removePreview" class="chatpro-remove-preview">✖</span>
+    <!-- Image/Video Preview -->
+    <div class="chatzone-preview" id="previewContainer" style="display: none;">
+        <span id="removePreview" class="chatzone-remove">✖</span>
         <div id="previewContent"></div>
     </div>
 
     <!-- Input Area -->
-    <form method="POST" enctype="multipart/form-data" class="chatpro-input-area">
+    <form method="POST" enctype="multipart/form-data" class="chatzone-input-area">
         {% csrf_token %}
-        <div class="chatpro-input-container">
-            <label for="file-upload" class="chatpro-file-icon">📎</label>
+        <div class="chatzone-input-container">
+            <label for="file-upload" class="chatzone-attach">📎</label>
             <input type="file" id="file-upload" name="file" accept="image/*,video/*" style="display: none;">
-            <input type="text" name="message" class="chatpro-text-input" placeholder="Type your message...">
+            <input type="text" name="message" class="chatzone-input" placeholder="Type your message...">
         </div>
-        <button type="submit" class="chatpro-send-btn">&#9658;</button>
+        <button type="submit" class="chatzone-send">➤</button>
     </form>
 
 </div>
 
 <style>
-.chatpro-wrapper {
+.chatzone-container {
     max-width: 600px;
     margin: 0 auto;
     background: #fff;
     border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
     height: 80vh;
     overflow: hidden;
+    position: relative;
 }
 
-.chatpro-window {
+.chatzone-chatbox {
     flex: 1;
     overflow-y: auto;
     padding: 1rem;
@@ -77,38 +78,33 @@
     gap: 0.6rem;
 }
 
-.chatpro-bubble {
+.chatzone-bubble {
     max-width: 70%;
     padding: 0.6rem 0.9rem;
     border-radius: 20px;
-    position: relative;
     background: #e9ecef;
     color: #333;
     font-size: 0.9rem;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    word-wrap: break-word;
 }
 
-.chatpro-sent {
+.chatzone-sent {
     align-self: flex-end;
     background: var(--primary-color);
     color: #fff;
 }
 
-.chatpro-received {
+.chatzone-received {
     align-self: flex-start;
-    background: #e9ecef;
 }
 
-.chatpro-sender {
+.chatzone-sender {
     font-weight: bold;
     font-size: 0.8rem;
 }
 
-.chatpro-message-text {
-    margin-top: 4px;
-}
-
-.chatpro-media {
+.chatzone-media {
     max-width: 150px;
     max-height: 150px;
     border-radius: 8px;
@@ -116,15 +112,18 @@
     object-fit: cover;
 }
 
-.chatpro-time {
-    font-size: 0.7rem;
-    text-align: right;
-    margin-top: 2px;
-    opacity: 0.6;
+.chatzone-text {
+    margin-top: 4px;
 }
 
-/* Preview Container */
-.chatpro-preview-container {
+.chatzone-time {
+    font-size: 0.7rem;
+    text-align: right;
+    opacity: 0.6;
+    margin-top: 2px;
+}
+
+.chatzone-preview {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -132,18 +131,19 @@
     padding: 0.4rem 0.6rem;
     border-radius: 10px;
     margin: 0.5rem;
-    max-width: 180px;
+    max-width: 200px;
     position: relative;
 }
 
-.chatpro-preview-container img,
-.chatpro-preview-container video {
-    max-width: 50px;
-    max-height: 50px;
+.chatzone-preview img,
+.chatzone-preview video {
+    max-width: 60px;
+    max-height: 60px;
     border-radius: 6px;
+    object-fit: cover;
 }
 
-.chatpro-remove-preview {
+.chatzone-remove {
     position: absolute;
     top: -6px;
     right: -6px;
@@ -158,37 +158,36 @@
     cursor: pointer;
 }
 
-/* Input Area */
-.chatpro-input-area {
+/* Input Area at Bottom */
+.chatzone-input-area {
     display: flex;
     align-items: center;
-    padding: 0.6rem;
+    padding: 0.5rem;
     background: #fff;
     border-top: 1px solid #ddd;
 }
 
-.chatpro-input-container {
+.chatzone-input-container {
     flex: 1;
     display: flex;
     align-items: center;
     background: #f1f1f1;
-    border-radius: 30px;
-    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    padding: 0.4rem 1rem;
     position: relative;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
 }
 
-.chatpro-text-input {
+.chatzone-input {
     flex: 1;
     border: none;
     outline: none;
     background: transparent;
-    font-size: 1rem;
     padding-left: 2rem;
-    min-height: 40px;
+    font-size: 1rem;
+    min-height: 38px;
 }
 
-.chatpro-file-icon {
+.chatzone-attach {
     position: absolute;
     left: 12px;
     font-size: 1.2rem;
@@ -196,42 +195,41 @@
     color: var(--primary-color);
 }
 
-.chatpro-send-btn {
+.chatzone-send {
     background: var(--primary-color);
     color: #fff;
     border: none;
-    width: 45px;
-    height: 45px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
-    margin-left: 0.6rem;
-    font-size: 1.1rem;
+    margin-left: 0.5rem;
+    font-size: 1rem;
     cursor: pointer;
+    display: grid;
+    place-items: center;
     transition: background 0.3s ease;
 }
 
-.chatpro-send-btn:hover {
+.chatzone-send:hover {
     background: #084dbf;
 }
 
-/* Responsive Design */
+/* Mobile Responsive */
 @media (max-width: 600px) {
-    .chatpro-wrapper {
+    .chatzone-container {
         height: 85vh;
     }
-    .chatpro-input-area {
-        padding: 0.4rem;
-    }
-    .chatpro-input-container {
-        padding: 0.4rem 0.8rem;
-    }
-    .chatpro-text-input {
+    .chatzone-input {
         font-size: 0.9rem;
-        min-height: 38px;
     }
-    .chatpro-send-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
+    .chatzone-send {
+        width: 38px;
+        height: 38px;
+        font-size: 0.9rem;
+    }
+    .chatzone-media {
+        max-width: 120px;
+        max-height: 120px;
     }
 }
 </style>
