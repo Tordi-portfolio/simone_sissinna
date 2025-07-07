@@ -5,6 +5,10 @@ urlpatterns = [
     path('author/', views.author, name='author'),
     path('gallary/', views.gallary, name='gallary'),
 
+    # PAYMENT METHOD
+    path('payment/', views.payment, name='payment'),
+    path('how_to_pay/', views.how_to_pay, name='how_to_pay'),
+
     # Gallery Section
     path('gallery/', views.gallery_view, name='gallery'),
     path('gallery/upload/', views.upload_gallery_view, name='upload_gallery'),

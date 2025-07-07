@@ -8,6 +8,15 @@ from django.contrib import messages
 def author(request):
     return render(request, 'author.html')
 
+
+# =============== Simple Payment Page =============
+def payment(request):
+    return render(request, 'payment/payment.html')
+
+def how_to_pay(request):
+    return render(request, 'payment/how_to_pay.html')
+
+
 # =============== Simple Gallary Page =============
 def gallary(request):
     return render(request, 'gallary.html')  # If different from gallery_view
