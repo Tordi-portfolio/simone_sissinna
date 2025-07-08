@@ -20,5 +20,7 @@ urlpatterns = [
 
     path('my_fanscard/', views.my_fanscard, name='my_fanscard'),
     path('admin-upload-fanscard/', views.admin_upload_fanscard, name='admin_upload_fanscard'),
+
+    path('premiun_card/', views.premiun_card, name='premiun_card'),
 ]
 

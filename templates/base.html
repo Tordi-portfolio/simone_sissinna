@@ -215,8 +215,9 @@
         <a href="{% url 'author' %}">Author</a>
         <a href="{% url 'gallary' %}">Movies</a>
         <a href="{% url 'gallery' %}">Gallery</a>
-        <a href="{% url 'fanscard_list' %}">Fans Card Catalog</a>
-        <a href="{% url 'my_fanscard' %}">My Purchased Card</a>
+        <a href="{% url 'fanscard_list' %}">Buy Standard Card</a>
+        <a href="{% url 'premiun_card' %}">Buy Premium Card</a>
+        <a href="{% url 'my_fanscard' %}">My Standard Card</a>
         <a href="{% url 'my_cards' %}">my Premium Card</a>
         {% if user.is_authenticated %}
             <a href="{% url 'chat_with_admin' %}">

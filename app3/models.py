@@ -13,6 +13,7 @@ class FanCard(models.Model):
         ('Gold Fan', 'Gold Fan'),
         ('Silver Fan', 'Silver Fan'),
         ('Bronze Fan', 'Bronze Fan'),
+        ('Vip Fan', 'Vip Fan'),
     ])
     valid_till = models.DateField()
     issued_on = models.DateField(auto_now_add=True)

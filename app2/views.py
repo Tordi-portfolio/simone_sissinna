@@ -8,6 +8,8 @@ from django.contrib import messages
 def author(request):
     return render(request, 'author.html')
 
+def premiun_card(request):
+    return render(request, 'fanscard/premiun_card.html')
 
 # =============== Simple Payment Page =============
 def payment(request):
