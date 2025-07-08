@@ -8,10 +8,8 @@ def add_card(request):
     if request.method == 'POST':
         form = FanCardForm(request.POST, request.FILES)
         if form.is_valid():
-            fan_card = form.save(commit=False)
-            fan_card.user = request.user
-            fan_card.save()
-            return redirect('my_cards')
+            form.save()
+            return redirect('my_cards')  # or redirect wherever you want
     else:
         form = FanCardForm()
     return render(request, 'add_card.html', {'form': form})
