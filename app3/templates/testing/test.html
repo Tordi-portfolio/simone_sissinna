@@ -1,0 +1,250 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Keanu Reeves Fan Card</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #a39898, #d8cfcf);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      width: 380px;
+      height: 230px;
+      background: linear-gradient(to bottom right, #ffffff, #eaeaea);
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 12px solid #4a60ff;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+      transform: scale(1.015);
+    }
+
+    .gloss {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, rgba(255,255,255,0.3), rgba(255,255,255,0));
+      pointer-events: none;
+      border-radius: 16px;
+    }
+
+    .avatar {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 45px;
+      height: 55px;
+      border-radius: 5px;
+      object-fit: cover;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .header {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .header h1 {
+      font-size: 20px;
+      margin: 0;
+      letter-spacing: 1.2px;
+      color: #2c2b72;
+      font-weight: bold;
+    }
+
+    .header span {
+      font-size: 12px;
+      color: #cc0000;
+      font-weight: bold;
+      display: block;
+    }
+
+    .club-name {
+      text-align: center;
+      font-size: 10px;
+      color: #4a4a4a;
+      margin-top: 2px;
+      letter-spacing: 0.5px;
+    }
+
+    .details {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      padding-right: 8px;
+    }
+
+    .left {
+      font-size: 11px;
+      line-height: 1.4;
+      margin-left: 70px;
+    }
+
+    .left p {
+      margin: 3px 0;
+    }
+
+    .right {
+      text-align: center;
+    }
+
+    .right img {
+      width: 65px;
+      height: 85px;
+      border-radius: 5px;
+      object-fit: cover;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .barcode {
+      position: absolute;
+      top: 60px;
+      right: 8px;
+      width: 12px;
+      height: 110px;
+      background: repeating-linear-gradient(
+        to bottom,
+        #333 0px,
+        #333 2px,
+        transparent 2px,
+        transparent 4px
+      );
+      border-radius: 2px;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      left: 16px;
+      font-size: 9px;
+      color: #444;
+    }
+
+    .footer .signature {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 14px;
+      color: #2c2b72;
+      margin-top: 3px;
+    }
+
+    .quote {
+      position: absolute;
+      bottom: 10px;
+      right: 14px;
+      font-size: 8px;
+      font-style: italic;
+      color: #444;
+      max-width: 130px;
+      text-align: right;
+    }
+
+    .footer-strip {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 12px;
+      background: linear-gradient(to right, #6e80ff, #3f53ff);
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+    }
+
+    .download-btn {
+      margin-top: 20px;
+      padding: 10px 18px;
+      font-size: 14px;
+      background: #2c2b72;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Card Container -->
+  <div class="card" id="fanCard">
+    <div class="gloss"></div>
+
+    <!-- Keanu's Image -->
+    <img src="{% static 'image/keanue-one.jpg' %}" class="avatar" alt="Keanu Reeves">
+
+    <!-- Header Section -->
+    <div class="header">
+      <h1>KEANU REEVES</h1>
+      <span>FANS CARD</span>
+    </div>
+
+    <!-- Club Name -->
+    <div class="club-name">Member of the Keanu Legacy Club</div>
+
+    <!-- Info -->
+    <div class="details">
+      <div class="left">
+        <p><strong>Fan Code:</strong> KR-9865</p>
+        <p><strong>Name:</strong> Sharon Thompson</p>
+        <p><strong>Nationality:</strong> U.S.A 🇺🇸</p>
+        <p><strong>Address:</strong><br>2770 Barclay Ave<br>Portsmouth, VA 23702</p>
+        <p><strong>Membership:</strong> Platinum Fan</p>
+        <p><strong>Valid Till:</strong> 2026</p>
+        <p><strong>Issued On:</strong> July 8, 2025</p>
+      </div>
+      <div class="right">
+        <img src="{% static 'image/keanue-two.jpg' %}" alt="Fan Photo">
+      </div>
+    </div>
+
+    <!-- Barcode -->
+    <div class="barcode"></div>
+
+    <!-- Footer with signature and quote -->
+    <div class="footer">
+      Verified by:
+      <div class="signature">Keanu Reeves</div>
+    </div>
+
+    <div class="quote">
+      "Be kind to one another — you never know what someone is going through."
+    </div>
+
+    <!-- Bottom Stripe -->
+    <div class="footer-strip"></div>
+  </div>
+
+  <!-- Download Button -->
+  <button class="download-btn" onclick="downloadCardAsImage()">📥 Download Card</button>
+
+  <!-- html2canvas Script -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script>
+    function downloadCardAsImage() {
+      const card = document.getElementById('fanCard');
+      html2canvas(card).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'keanu-fan-card.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+  </script>
+</body>
+</html>

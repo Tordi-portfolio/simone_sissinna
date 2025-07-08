@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
     path('app2', include('app2.urls')),
+    path('app3', include('app3.urls')),
 ]
 
 # Serve media files in development
