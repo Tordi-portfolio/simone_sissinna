@@ -1,13 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <h2 style="margin-bottom: 1rem; color: var(--primary-color); text-align: center; font-size: 1.2rem;">
     Chat with Admin
 </h2>
 
 <div class="chatzone-container">
-
     <div class="chatzone-chatbox" id="chatBox">
         {% for msg in messages %}
             <div class="chatzone-bubble {% if msg.sender == request.user %}chatzone-sent{% else %}chatzone-received{% endif %}">
@@ -15,14 +13,19 @@
                     <div class="chatzone-sender">{{ msg.sender.username }}</div>
 
                     {% if msg.file %}
-                        {% if msg.file.url|lower|slice:"-4:" == ".mp4" or msg.file.url|lower|slice:"-5:" == ".webm" %}
-                            <video controls class="chatzone-media">
-                                <source src="{{ msg.file.url }}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        {% else %}
-                            <img src="{{ msg.file.url }}" alt="Image" class="chatzone-media">
-                        {% endif %}
+                        {% with msg.file.url|lower as file_url %}
+                            {% if file_url|slice:"-5:" == ".webm" or file_url|slice:"-4:" == ".mp3" or file_url|slice:"-4:" == ".wav" %}
+                                <audio controls class="chatzone-media">
+                                    <source src="{{ msg.file.url }}">
+                                </audio>
+                            {% elif file_url|slice:"-4:" == ".mp4" %}
+                                <video controls class="chatzone-media">
+                                    <source src="{{ msg.file.url }}">
+                                </video>
+                            {% else %}
+                                <img src="{{ msg.file.url }}" alt="Image" class="chatzone-media">
+                            {% endif %}
+                        {% endwith %}
                     {% endif %}
 
                     {% if msg.message %}
@@ -35,26 +38,40 @@
         {% endfor %}
     </div>
 
-    <!-- Image/Video Preview -->
     <div class="chatzone-preview" id="previewContainer" style="display: none;">
         <span id="removePreview" class="chatzone-remove">✖</span>
         <div id="previewContent"></div>
     </div>
 
-    <!-- Input Area -->
     <form method="POST" enctype="multipart/form-data" class="chatzone-input-area">
         {% csrf_token %}
         <div class="chatzone-input-container">
-            <label for="file-upload" class="chatzone-attach">📎</label>
             <input type="file" id="file-upload" name="file" accept="image/*,video/*" style="display: none;">
+            <input type="file" id="voice-file" name="file" style="display: none;">
             <input type="text" name="message" class="chatzone-input" placeholder="Type your message...">
+            <button type="button" id="attachBtn" class="chatzone-icon" title="Attach file">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" viewBox="0 0 24 24">
+                  <path d="M16.5,6.5 L9.91,13.09 C9.13,13.87 7.87,13.87 7.09,13.09 C6.31,12.31 6.31,11.05 7.09,10.27 L13.68,3.68 C15.24,2.12 17.76,2.12 19.32,3.68 C20.88,5.24 20.88,7.76 19.32,9.32 L11.5,17.14 C9.57,19.07 6.43,19.07 4.5,17.14 C2.57,15.21 2.57,12.07 4.5,10.14 L12,2.64" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <button type="button" id="recordBtn" class="chatzone-icon" title="Record voice">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" viewBox="0 0 16 16">
+                  <path d="M8 12a3 3 0 0 0 3-3V4a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3z"/>
+                  <path d="M5 10.5a.5.5 0 0 1 1 0A2 2 0 0 0 8 12a2 2 0 0 0 2-1.5.5.5 0 0 1 1 0A3 3 0 0 1 8 13a3 3 0 0 1-3-2.5z"/>
+                  <path d="M8 14.5a.5.5 0 0 1-.5-.5V13h1v1a.5.5 0 0 1-.5.5z"/>
+                </svg>
+            </button>
         </div>
         <button type="submit" class="chatzone-send">➤</button>
     </form>
-
 </div>
 
 <style>
+:root {
+    --primary-color: #007bff;
+    --text-color: #333;
+}
+
 .chatzone-container {
     max-width: 600px;
     margin: 0 auto;
@@ -105,8 +122,8 @@
 }
 
 .chatzone-media {
-    max-width: 150px;
-    max-height: 150px;
+    max-width: 180px;
+    max-height: 180px;
     border-radius: 8px;
     margin-top: 5px;
     object-fit: cover;
@@ -135,14 +152,6 @@
     position: relative;
 }
 
-.chatzone-preview img,
-.chatzone-preview video {
-    max-width: 60px;
-    max-height: 60px;
-    border-radius: 6px;
-    object-fit: cover;
-}
-
 .chatzone-remove {
     position: absolute;
     top: -6px;
@@ -158,13 +167,18 @@
     cursor: pointer;
 }
 
-/* Input Area at Bottom */
 .chatzone-input-area {
     display: flex;
     align-items: center;
     padding: 0.5rem;
     background: #fff;
     border-top: 1px solid #ddd;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
 }
 
 .chatzone-input-container {
@@ -182,17 +196,36 @@
     border: none;
     outline: none;
     background: transparent;
-    padding-left: 2rem;
     font-size: 1rem;
     min-height: 38px;
+    padding-right: 90px;
 }
 
-.chatzone-attach {
+.chatzone-icon {
     position: absolute;
-    left: 12px;
-    font-size: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 48px;
+    background: var(--primary-color);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
     cursor: pointer;
-    color: var(--primary-color);
+    margin-left: 6px;
+    transition: background 0.3s ease;
+}
+
+.chatzone-icon:last-of-type {
+    right: 10px;
+}
+
+.chatzone-icon svg {
+    fill: #fff;
+    width: 18px;
+    height: 18px;
 }
 
 .chatzone-send {
@@ -202,34 +235,53 @@
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    margin-left: 0.5rem;
     font-size: 1rem;
     cursor: pointer;
     display: grid;
     place-items: center;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    flex-shrink: 0;
 }
 
 .chatzone-send:hover {
     background: #084dbf;
 }
 
-/* Mobile Responsive */
+/* Mobile */
 @media (max-width: 600px) {
     .chatzone-container {
         height: 85vh;
+        border-radius: 0;
     }
+
+    .chatzone-input-area {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+        padding: 0.6rem;
+    }
+
+    .chatzone-input-container {
+        width: 100%;
+        padding: 0.4rem 0.9rem;
+        border-radius: 20px;
+    }
+
     .chatzone-input {
-        font-size: 0.9rem;
+        padding-right: 90px;
+        font-size: 1rem;
     }
+
     .chatzone-send {
-        width: 38px;
-        height: 38px;
-        font-size: 0.9rem;
+        width: 100%;
+        height: 45px;
+        font-size: 1rem;
+        border-radius: 10px;
     }
-    .chatzone-media {
-        max-width: 120px;
-        max-height: 120px;
+
+    .chatzone-preview {
+        max-width: 100%;
+        margin: 0.5rem;
     }
 }
 </style>
@@ -242,13 +294,17 @@ const fileInput = document.getElementById('file-upload');
 const previewContainer = document.getElementById('previewContainer');
 const previewContent = document.getElementById('previewContent');
 const removePreview = document.getElementById('removePreview');
+const voiceInput = document.getElementById('voice-file');
+const recordBtn = document.getElementById('recordBtn');
+const attachBtn = document.getElementById('attachBtn');
+
+attachBtn.addEventListener("click", () => fileInput.click());
 
 fileInput.addEventListener('change', () => {
     previewContent.innerHTML = '';
     if (fileInput.files.length > 0) {
         const file = fileInput.files[0];
         const type = file.type;
-
         if (type.startsWith('image/')) {
             const img = document.createElement('img');
             img.src = URL.createObjectURL(file);
@@ -256,9 +312,7 @@ fileInput.addEventListener('change', () => {
         } else if (type.startsWith('video/')) {
             const video = document.createElement('video');
             video.src = URL.createObjectURL(file);
-            video.muted = true;
-            video.autoplay = true;
-            video.loop = true;
+            video.controls = true;
             previewContent.appendChild(video);
         }
         previewContainer.style.display = 'flex';
@@ -267,8 +321,50 @@ fileInput.addEventListener('change', () => {
 
 removePreview.addEventListener('click', () => {
     fileInput.value = '';
+    voiceInput.value = '';
     previewContainer.style.display = 'none';
 });
-</script>
 
+let mediaRecorder;
+let audioChunks = [];
+
+recordBtn.addEventListener("click", async () => {
+    if (mediaRecorder && mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+        recordBtn.innerHTML = recordBtn.dataset.originalIcon || recordBtn.innerHTML;
+        return;
+    }
+
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
+
+        mediaRecorder.ondataavailable = e => {
+            audioChunks.push(e.data);
+        };
+
+        mediaRecorder.onstop = () => {
+            const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+            const file = new File([audioBlob], "voice_note.webm", { type: "audio/webm" });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            voiceInput.files = dataTransfer.files;
+
+            const audioPreview = document.createElement("audio");
+            audioPreview.controls = true;
+            audioPreview.src = URL.createObjectURL(file);
+            previewContent.innerHTML = "";
+            previewContent.appendChild(audioPreview);
+            previewContainer.style.display = "flex";
+        };
+
+        mediaRecorder.start();
+        recordBtn.dataset.originalIcon = recordBtn.innerHTML;
+        recordBtn.innerHTML = "⏹️";
+    } catch (err) {
+        alert("Microphone access denied or unsupported.");
+    }
+});
+</script>
 {% endblock %}

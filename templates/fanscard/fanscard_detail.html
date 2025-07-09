@@ -31,7 +31,11 @@
 
 </div>
 
-<a href="{% url 'payment' %}" class="pay-link">Make Payment</a>
+{% if user.is_authenticated %}
+    <a href="{% url 'payment' %}" class="pay-link">Make Payment</a>
+{% else %}
+    <a href="{% url 'login' %}" class="pay-link">Kindly Login To Access This Page</a>
+{% endif %}
 
 <style>
     .pay-link {
