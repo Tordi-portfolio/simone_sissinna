@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jason Momoa</title>
+
+  <style>
+    nav.navbar {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 0 20px rgba(255, 60, 0, 0.15);
+      border-bottom: 1px solid rgba(255, 60, 0, 0.1);
+      position: relative;
+    }
+
+    nav.navbar .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 8px rgba(255, 60, 0, 0.5);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 26px;
+      color: #fff;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    nav.navbar ul.nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav.navbar ul.nav-links li {
+      display: inline;
+    }
+
+    nav.navbar ul.nav-links li a {
+      text-decoration: none;
+      color: #eee;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    nav.navbar ul.nav-links li a:hover,
+    nav.navbar ul.nav-links li a.active {
+      color: #ff3c00;
+    }
+
+    nav.navbar ul.nav-links li a.active::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: #ff3c00;
+      bottom: -4px;
+      left: 0;
+    }
+
+    /* Footer Styling */
+    footer {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 40px 30px;
+      color: #eee;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 30px rgba(255, 60, 0, 0.1);
+      margin-top: 50px;
+    }
+
+    .footer-section {
+      margin-bottom: 30px;
+    }
+
+    .footer-section h4 {
+      color: #ff3c00;
+      margin-bottom: 12px;
+      font-size: 18px;
+      text-shadow: 0 0 6px rgba(255, 60, 0, 0.4);
+    }
+
+    .footer-section a {
+      display: block;
+      color: #ccc;
+      text-decoration: none;
+      margin: 5px 0;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-section a:hover {
+      color: #ff3c00;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      font-size: 13px;
+      margin-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 15px;
+      color: #999;
+    }
+
+    @media (min-width: 768px) {
+      footer {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 50px 60px;
+      }
+
+      .footer-section {
+        flex: 1;
+        padding: 0 20px;
+        max-width: 33.3%;
+      }
+
+      .footer-bottom {
+        flex-basis: 100%;
+        margin-top: 40px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 18px;
+      }
+
+      nav.navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+      }
+
+      nav.navbar ul.nav-links {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+        display: none;
+      }
+
+      nav.navbar ul.nav-links.show {
+        display: flex;
+      }
+
+      nav.navbar ul.nav-links li a {
+        display: block;
+        padding: 8px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">⚡ Jason Momoa</div>
+  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="{% url 'author' %}">Author</a></li>
+    <li><a href="{% url 'gallary' %}">Movies</a></li>
+    <li><a href="{% url 'gallery' %}">Gallery</a></li>
+    <li><a href="{% url 'fanscard_list' %}">Buy Standard Card</a></li>
+    <li><a href="{% url 'premiun_card' %}">Buy Premium Card</a></li>
+
+    {% if user.is_authenticated %}
+      <li><a href="{% url 'my_fanscard' %}">My Standard Card</a></li>
+      <li><a href="{% url 'my_cards' %}">My Premium Card</a></li>
+      <li><a href="{% url 'create_shipment' %}">Create Shipment</a></li>
+      <li><a href="{% url 'track_shipment' %}">Track Shipment</a></li>
+      <li>
+        <a href="{% url 'chat_with_admin' %}">
+          Chat with Jason <span class="notif-badge" id="chatBadge"></span>
+        </a>
+      </li>
+      <li><a href="{% url 'logout' %}">Logout ({{ user.username }})</a></li>
+    {% else %}
+      <li><a href="{% url 'login' %}">Login</a></li>
+      <li><a href="{% url 'register' %}">Register</a></li>
+    {% endif %}
+
+    {% if user.is_staff %}
+      <li><p style="margin: 10px 0; color: #ff3c00;">Admins Only</p></li>
+      <li>
+        <a href="{% url 'admin_user_list' %}" class="chat-link">
+          User Chats <span class="notif-badge" id="adminBadge"></span>
+        </a>
+      </li>
+      <li><a href="{% url 'admin_upload_fanscard' %}">Upload User Card</a></li>
+      <li><a href="{% url 'upload_gallery' %}">Upload Gallery</a></li>
+      <li><a href="{% url 'upload_fanscard' %}">Upload Fanscard</a></li>
+      <li><a href="{% url 'add_card' %}">Add Premium Card</a></li>
+    {% endif %}
+  </ul>
+</nav>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('show');
+  }
+</script>
+
+{% block content %} {% endblock %}
+
+<footer>
+  <div class="footer-section">
+    <h4>About Jason Momoa</h4>
+    <p>This site provides fast, secure, and reliable chatting with Jason Momoa the original founder of this site.</p>
+  </div>
+  <div class="footer-section">
+    <h4>Quick Links</h4>
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'author' %}">Author</a>
+    <a href="{% url 'fanscard_list' %}">Buy Your Fans Card</a>
+  </div>
+  <div class="footer-section">
+    <h4>Contact Us</h4>
+    <p>Email: support@JasonMomoa.com</p>
+    <p>Phone: +1 234 567 890</p>
+  </div>
+  <div class="footer-bottom">&copy; {{ year }} Jason Momoa. All rights reserved.</div>
+</footer>
+
+</body>
+</html>

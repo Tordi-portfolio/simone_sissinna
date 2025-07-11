@@ -220,6 +220,8 @@
         {% if user.is_authenticated %}
         <a href="{% url 'my_fanscard' %}">My Standard Card</a>
         <a href="{% url 'my_cards' %}">my Premium Card</a>
+        <a href="{% url 'create_shipment' %}">Create Shipment</a>
+        <a href="{% url 'track_shipment' %}">Track Shipment</a>
             <a href="{% url 'chat_with_admin' %}">
                 Chat with Jason<span class="notif-badge" id="chatBadge"></span>
             </a>
