@@ -1,178 +1,131 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-<h1 class="movie-heading">Complete Keanu Reeves Movie List</h1>
-
-<p class="movies-welcome">
-    Hey everyone, welcome to the official movie list page! I’m truly grateful that you’ve taken the time to visit and explore the body of work I’ve been fortunate to be part of over the years. Whether you’ve known me since the early days, or maybe you’ve just discovered my films recently, I want to say a huge thank you for your support, curiosity, and love for storytelling.
-
-    Acting has been one of the most incredible journeys of my life. From small indie projects to massive productions, every film has taught me something new and connected me with amazing people — both on and off the screen. Movies have a unique way of bringing us together, making us feel, reflect, and sometimes escape reality for a little while. And honestly, it means the world to me that some of these stories have resonated with you.
-
-    On this page, you’ll find a list of films I’ve worked on — some you probably know well, and others you might have missed. If you haven’t seen all of them yet, I hope you’ll take the time to dive in and enjoy the ride. Each movie represents a chapter of my journey — with action, drama, laughter, and the occasional wild adventure thrown in.
-
-    Your continued support motivates me to keep growing, exploring new characters, and telling stories that matter. So, thank you again for being here. Keep watching, keep dreaming, and never stop believing in the power of cinema.
-</p>
-
-<div class="movies-container">
-    <ul class="movies-list">
-        <li>One Step Away (1985)</li>
-        <li>Flying (1986)</li>
-        <li>River's Edge (1986)</li>
-        <li>Babes in Toyland (1986)</li>
-        <li>Act of Vengeance (1986)</li>
-        <li>Permanent Record (1988)</li>
-        <li>Dangerous Liaisons (1988)</li>
-        <li>Bill & Ted's Excellent Adventure (1989)</li>
-        <li>Parenthood (1989)</li>
-        <li>Tune in Tomorrow (1990)</li>
-        <li>Point Break (1991)</li>
-        <li>Bill & Ted's Bogus Journey (1991)</li>
-        <li>My Own Private Idaho (1991)</li>
-        <li>Bram Stoker's Dracula (1992)</li>
-        <li>Much Ado About Nothing (1993)</li>
-        <li>Even Cowgirls Get the Blues (1993)</li>
-        <li>Little Buddha (1993)</li>
-        <li>Speed (1994)</li>
-        <li>Johnny Mnemonic (1995)</li>
-        <li>A Walk in the Clouds (1995)</li>
-        <li>Chain Reaction (1996)</li>
-        <li>Feeling Minnesota (1996)</li>
-        <li>The Last Time I Committed Suicide (1997)</li>
-        <li>The Devil's Advocate (1997)</li>
-        <li>The Matrix (1999)</li>
-        <li>The Replacements (2000)</li>
-        <li>The Watcher (2000)</li>
-        <li>The Gift (2000)</li>
-        <li>Sweet November (2001)</li>
-        <li>Hardball (2001)</li>
-        <li>The Matrix Reloaded (2003)</li>
-        <li>The Matrix Revolutions (2003)</li>
-        <li>The Animatrix (2003)</li>
-        <li>Something's Gotta Give (2003)</li>
-        <li>Constantine (2005)</li>
-        <li>Thumbsucker (2005)</li>
-        <li>A Scanner Darkly (2006)</li>
-        <li>The Lake House (2006)</li>
-        <li>Street Kings (2008)</li>
-        <li>The Day the Earth Stood Still (2008)</li>
-        <li>The Private Lives of Pippa Lee (2008)</li>
-        <li>Henry's Crime (2010)</li>
-        <li>Generation Um... (2012)</li>
-        <li>Side by Side (2012)</li>
-        <li>Man of Tai Chi (2013)</li>
-        <li>47 Ronin (2013)</li>
-        <li>John Wick (2014)</li>
-        <li>Knock Knock (2015)</li>
-        <li>Exposed (2016)</li>
-        <li>The Neon Demon (2016)</li>
-        <li>The Whole Truth (2016)</li>
-        <li>The Bad Batch (2016)</li>
-        <li>To the Bone (2017)</li>
-        <li>John Wick: Chapter 2 (2017)</li>
-        <li>Siberia (2018)</li>
-        <li>Destination Wedding (2018)</li>
-        <li>Replicas (2018)</li>
-        <li>John Wick: Chapter 3 – Parabellum (2019)</li>
-        <li>Always Be My Maybe (2019)</li>
-        <li>Toy Story 4 (2019)</li>
-        <li>Bill & Ted Face the Music (2020)</li>
-        <li>The SpongeBob Movie: Sponge on the Run (2020)</li>
-        <li>The Matrix Resurrections (2021)</li>
-        <li>DC League of Super-Pets (2022)</li>
-        <li>John Wick: Chapter 4 (2023)</li>
-        <li>Sonic the Hedgehog 3 (2024, voice)</li>
-        <li>Ballerina (2025, upcoming)</li>
-        <li>Good Fortune (2025, upcoming)</li>
-    </ul>
-</div>
-
-<style>
-:root {
-    --primary-color: #0d6efd;
-    --background-color: #f8f9fa;
-    --text-color: #212529;
-}
-
-body {
-    background: var(--background-color);
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-.movie-heading {
-    text-align: center;
-    margin: 2rem 1rem;
-    color: var(--primary-color);
-    font-size: 2rem;
-}
-
-.movies-welcome {
-    max-width: 900px;
-    margin: 0 auto 2rem;
-    font-size: 1rem;
-    color: #555;
-    line-height: 1.7;
-    padding: 0 1rem;
-    text-align: justify;
-}
-
-.movies-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background: #fff;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-
-.movies-list {
-    list-style-type: decimal;
-    padding-left: 1.5rem;
-    margin: 0;
-}
-
-.movies-list li {
-    margin: 0.6rem 0;
-    font-size: 1.1rem;
-    color: var(--text-color);
-    line-height: 1.5;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-    .movies-container {
-        padding: 1.2rem;
-    }
-    
-    .movie-heading {
-        font-size: 1.5rem;
-        margin: 1.5rem 0;
+  <style>
+    body {
+      background: linear-gradient(120deg, #0d0d0d, #1a1a1a);
+      color: #e8e8e8;
     }
 
-    .movies-list li {
+    .gallery-section {
+      animation: fadeIn 1.5s ease-in-out;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 60, 0, 0.2);
+      backdrop-filter: blur(6px);
+      margin-bottom: 2rem;
+    }
+
+    .gallery-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      text-align: center;
+      text-shadow: 2px 2px 8px rgba(255, 60, 0, 0.6);
+      margin-bottom: 1.5rem;
+    }
+
+    .gallery-text {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: #ddd;
+      text-align: justify;
+    }
+
+    .film-list {
+      margin-top: 2rem;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #ccc;
+    }
+
+    .film-item {
+      margin-bottom: 0.5rem;
+    }
+
+    .film-year {
+      color: var(--accent-color);
+      font-weight: 600;
+      margin-right: 0.5rem;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .gallery-title {
+        font-size: 2rem;
+      }
+
+      .gallery-text {
         font-size: 1rem;
-    }
-}
+      }
 
-@media (max-width: 480px) {
-    .movies-container {
-        padding: 1rem;
+      .film-list {
+        font-size: 0.9rem;
+      }
     }
-    
-    .movie-heading {
-        font-size: 1.3rem;
-    }
+  </style>
 
-    .movies-welcome {
-        font-size: 0.95rem;
-        text-align: left;
-    }
+  <div class="gallery-section">
+    <div class="gallery-title">Jason Momoa: A Cinematic Force</div>
 
-    .movies-list li {
-        font-size: 0.95rem;
-    }
-}
-</style>
+    <div class="gallery-text">
+      Jason Momoa’s film journey is as bold and unforgettable as the characters he portrays. From his unforgettable performance as *Khal Drogo* in HBO’s *Game of Thrones* to leading billion-dollar franchises like *Aquaman*, his cinematic presence blends power with deep emotional gravity.
+      <br><br>
+      In 2011, Momoa starred as *Conan* in *Conan the Barbarian*, showcasing raw physicality and tribal intensity. Though the film received mixed reviews, his performance left a lasting mark, setting the stage for his ascent as a modern-day warrior on screen.
+      <br><br>
+      His true blockbuster breakthrough came with the DC Extended Universe. As *Arthur Curry / Aquaman*, Momoa redefined superhero masculinity—gritty, heartfelt, and proudly Indigenous. The 2018 film *Aquaman* became a global success, grossing over $1.1 billion and earning him a place in cinematic history.
+      <br><br>
+      Beyond the superhero realm, Jason has starred in epic titles like *Dune*, *Slumberland*, *Braven*, *Sweet Girl*, and the Apple TV+ original *See*, where he plays a blind tribal leader in a dystopian world. Each role reflects his commitment to physical storytelling and emotional authenticity.
+      <br><br>
+      With every film, Momoa blends his love for heritage, action, and storytelling. He doesn’t just act—he transforms. His characters reflect his own soul: powerful, passionate, and rooted in something deeper than the script.
+    </div>
+  </div>
 
+  <div class="gallery-section">
+    <div class="gallery-title">Complete Filmography</div>
+    <div class="film-list">
+      <!-- Listing all his films chronologically -->
+      <div class="film-item"><span class="film-year">2004</span>Johnson Family Vacation</div>
+      <div class="film-item"><span class="film-year">2007</span>Pipeline</div>
+      <div class="film-item"><span class="film-year">2010</span>Brown Bag Diaries: Ridin' the Blinds in B Minor (short)</div>
+      <div class="film-item"><span class="film-year">2011</span>Conan the Barbarian</div>
+      <div class="film-item"><span class="film-year">2012</span>Bullet to the Head</div>
+      <div class="film-item"><span class="film-year">2014</span>Road to Paloma</div>
+      <div class="film-item"><span class="film-year">2014</span>Debug</div>
+      <div class="film-item"><span class="film-year">2014</span>Wolves</div>
+      <div class="film-item"><span class="film-year">2016</span>Batman v Superman: Dawn of Justice (cameo)</div>
+      <div class="film-item"><span class="film-year">2016</span>Sugar Mountain</div>
+      <div class="film-item"><span class="film-year">2017</span>Once Upon a Time in Venice</div>
+      <div class="film-item"><span class="film-year">2017</span>The Bad Batch</div>
+      <div class="film-item"><span class="film-year">2017</span>Justice League</div>
+      <div class="film-item"><span class="film-year">2018</span>Braven</div>
+      <div class="film-item"><span class="film-year">2018</span>Aquaman</div>
+      <div class="film-item"><span class="film-year">2019</span>The Lego Movie 2: The Second Part (voice)</div>
+      <div class="film-item"><span class="film-year">2020</span>Gather (documentary)</div>
+      <div class="film-item"><span class="film-year">2021</span>Zack Snyder's Justice League</div>
+      <div class="film-item"><span class="film-year">2021</span>Sweet Girl</div>
+      <div class="film-item"><span class="film-year">2021</span>Dune</div>
+      <div class="film-item"><span class="film-year">2022</span>Slumberland</div>
+      <div class="film-item"><span class="film-year">2022</span>The Last Manhunt</div>
+      <div class="film-item"><span class="film-year">2023</span>Fast X</div>
+      <div class="film-item"><span class="film-year">2023</span>Aquaman and the Lost Kingdom</div>
+      <div class="film-item"><span class="film-year">2023</span>The Flash (cameo)</div>
+      <div class="film-item"><span class="film-year">2024</span>The Fall Guy (cameo)</div>
+      <div class="film-item"><span class="film-year">2025</span>A Minecraft Movie</div>
+      <div class="film-item"><span class="film-year">2025</span>Animal Friends</div>
+      <div class="film-item"><span class="film-year">2025</span>In the Hand of Dante</div>
+      <div class="film-item"><span class="film-year">2026</span>Supergirl: Woman of Tomorrow (as Lobo)</div>
+    </div>
+  </div>
 {% endblock %}

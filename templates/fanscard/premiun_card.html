@@ -6,25 +6,29 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  body {
+    background: linear-gradient(120deg, #0d0d0d, #1a1a1a);
+    color: #e8e8e8;
+    font-family: 'Poppins', sans-serif;
   }
 
   .container {
     text-align: center;
     padding: 2rem;
-    background: #f1f3f6;
+    background: rgba(255, 255, 255, 0.03);
     border-radius: 20px;
-    box-shadow: 10px 10px 25px #bec3cf, -10px -10px 25px #ffffff;
+    box-shadow: 0 0 30px rgba(255, 60, 0, 0.15);
+    max-width: 960px;
+    margin: auto;
+    backdrop-filter: blur(6px);
   }
 
   h1 {
     margin-bottom: 2rem;
-    color: #333;
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     font-weight: 600;
+    color: var(--accent-color, #ff4c29);
+    text-shadow: 1px 1px 4px rgba(255, 60, 0, 0.4);
   }
 
   .button-group {
@@ -39,40 +43,32 @@
     font-size: 15px;
     font-weight: 600;
     text-decoration: none;
-    color: #333;
-    background: #e8ebf3;
+    color: #fff;
+    background: #1c1c1c;
     border-radius: 50px;
-    box-shadow: 6px 6px 12px #c3c9d4, -6px -6px 12px #ffffff;
+    box-shadow: 0 4px 15px rgba(255, 60, 0, 0.2);
     transition: all 0.25s ease-in-out;
     position: relative;
   }
 
   .btn-link:hover {
-    color: #fff;
     transform: translateY(-4px) scale(1.03);
-    background: linear-gradient(to right, #8ec5fc, #e0c3fc);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  }
-
-  @media (max-width: 500px) {
-    .btn-link {
-      width: 100%;
-      text-align: center;
-    }
+    background: linear-gradient(to right, #ff5e57, #ff884b);
+    color: #fff;
   }
 
   .card {
     width: 380px;
     height: 230px;
-    background: linear-gradient(to bottom right, #ffffff, #eaeaea);
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
     border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 25px rgba(255, 60, 0, 0.15);
     padding: 16px;
     position: relative;
     overflow: hidden;
-    border-bottom: 12px solid #4a60ff;
-    transition: transform 0.3s ease-in-out;
+    border-bottom: 12px solid #ff4c29;
     margin: 3rem auto 1rem;
+    backdrop-filter: blur(5px);
   }
 
   .card:hover {
@@ -81,11 +77,9 @@
 
   .gloss {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(145deg, rgba(255,255,255,0.3), rgba(255,255,255,0));
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
     pointer-events: none;
     border-radius: 16px;
   }
@@ -98,7 +92,7 @@
     height: 55px;
     border-radius: 5px;
     object-fit: cover;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
   }
 
   .header {
@@ -110,13 +104,13 @@
     font-size: 20px;
     margin: 0;
     letter-spacing: 1.2px;
-    color: #2c2b72;
+    color: #ffffff;
     font-weight: bold;
   }
 
   .header span {
     font-size: 12px;
-    color: #cc0000;
+    color: #ff4c29;
     font-weight: bold;
     display: block;
   }
@@ -124,7 +118,7 @@
   .club-name {
     text-align: center;
     font-size: 10px;
-    color: #4a4a4a;
+    color: #aaa;
     margin-top: 2px;
     letter-spacing: 0.5px;
   }
@@ -140,14 +134,11 @@
     font-size: 11px;
     line-height: 1.4;
     margin-left: 70px;
+    color: #ddd;
   }
 
   .left p {
     margin: 3px 0;
-  }
-
-  .right {
-    text-align: center;
   }
 
   .right img {
@@ -155,7 +146,7 @@
     height: 85px;
     border-radius: 5px;
     object-fit: cover;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
   }
 
   .barcode {
@@ -166,8 +157,8 @@
     height: 110px;
     background: repeating-linear-gradient(
       to bottom,
-      #333 0px,
-      #333 2px,
+      #eee 0px,
+      #eee 2px,
       transparent 2px,
       transparent 4px
     );
@@ -179,13 +170,13 @@
     bottom: 10px;
     left: 16px;
     font-size: 9px;
-    color: #444;
+    color: #ccc;
   }
 
   .footer .signature {
     font-family: 'Brush Script MT', cursive;
     font-size: 14px;
-    color: #2c2b72;
+    color: #ff4c29;
     margin-top: 3px;
   }
 
@@ -195,7 +186,7 @@
     right: 14px;
     font-size: 8px;
     font-style: italic;
-    color: #444;
+    color: #aaa;
     max-width: 130px;
     text-align: right;
   }
@@ -206,9 +197,16 @@
     left: 0;
     width: 100%;
     height: 12px;
-    background: linear-gradient(to right, #6e80ff, #3f53ff);
+    background: linear-gradient(to right, #ff5e57, #ff884b);
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
+  }
+
+  @media (max-width: 500px) {
+    .btn-link {
+      width: 100%;
+      text-align: center;
+    }
   }
 </style>
 
@@ -217,13 +215,12 @@
 
   <div class="button-group">
     <a href="{% url 'payment' %}" class="btn-link">VIP <br><br> $1000</a>
-    <a href="{% url 'payment' %}" class="btn-link">SILVER <br> <br> %1500</a>
+    <a href="{% url 'payment' %}" class="btn-link">SILVER <br> <br> $1500</a>
     <a href="{% url 'payment' %}" class="btn-link">BRONZE <br> <br> $2000</a>
     <a href="{% url 'payment' %}" class="btn-link">PLATINUM <br> <br> $2500</a>
     <a href="{% url 'payment' %}" class="btn-link">GOLD <br> <br> $3000</a>
   </div>
 
-  <!-- Fan Card inside container -->
   <div class="card" id="fanCard">
     <div class="gloss"></div>
     <img src="{% static 'image/keanue-one.jpg' %}" class="avatar" alt="Keanu Reeves">

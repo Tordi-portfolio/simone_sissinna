@@ -1,18 +1,110 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="gallery-container">
-    <h2>Photo Gallery</h2>
-    
-    <p class="gallery-welcome">
-        Hey there, I’m Keanu Reeves, and I want to personally welcome you to this special part of my website — the official gallery. Life has been a wild, beautiful journey filled with unforgettable moments, incredible people, and experiences I never imagined possible. This space is where I get to share pieces of that journey with you, my fans and supporters, who have stood by me throughout the years.
+  <style>
+    body {
+      background: linear-gradient(120deg, #0d0d0d, #1a1a1a);
+      color: #e8e8e8;
+    }
 
-        Whether it’s behind-the-scenes snapshots from movie sets, candid moments from travels, red carpet appearances, or personal highlights, these images capture fragments of my life that mean a lot to me. Acting has always been more than a job — it’s been a way to connect, to tell stories that move people, and to remind ourselves that we’re all part of something bigger.
+    .gallery-section {
+      animation: fadeIn 1.5s ease-in-out;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 60, 0, 0.2);
+      backdrop-filter: blur(6px);
+      margin-bottom: 2rem;
+    }
 
-        You’ve probably seen me in films like "The Matrix," "John Wick," or even way back in "Speed" and "Point Break." But beyond the movies, there’s a human side — moments of reflection, laughter, friendship, and quiet that often happen away from the spotlight. This gallery brings some of those memories to life, and I hope they resonate with you in some way.
+    .gallery-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      text-align: center;
+      text-shadow: 2px 2px 8px rgba(255, 60, 0, 0.6);
+      margin-bottom: 1.5rem;
+    }
 
-        I believe life is about connections — with our art, our passions, and with each other. If you’ve supported my work, cheered from afar, or simply appreciated the journey, this gallery is for you. It’s my way of saying thank you for being here, for being curious, and for sharing this ride with me. Enjoy exploring these photos, and remember — be kind, stay curious, and never stop chasing your dreams.
-    </p>
+    .gallery-text {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: #ddd;
+      text-align: justify;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .gallery-item {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(255, 60, 0, 0.2);
+      transition: 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px rgba(255, 60, 0, 0.4);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+      max-height: 300px;
+    }
+
+    .gallery-item p {
+      margin-top: 0.8rem;
+      color: #ccc;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      .gallery-title {
+        font-size: 2rem;
+      }
+
+      .gallery-text {
+        font-size: 1rem;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+
+  <div class="gallery-section">
+    <div class="gallery-title">Jason Momoa: In My Eyes</div>
+
+    <div class="gallery-text">
+      Hey there—I'm Jason Momoa, and if there's one thing I’ve learned through the years, it’s that photographs don’t just capture how you look—they capture who you are. Every image, every frame, is a reflection of something deeper. Whether it’s me suited up as Aquaman standing tall in the waves or me chilling barefoot with a guitar around a fire, they all tell stories that words sometimes can’t.
+      <br><br>
+      Some of these photos are from big movie sets, dripping in lights and CGI magic. Others are raw and wild—snapped while I’m climbing cliffs, riding bikes, or hugging my kids. These are the moments that remind me who I am when all the Hollywood stuff fades. I live for those moments. That’s my real life.
+      <br><br>
+      I’ve always believed in authenticity. I don’t do polished and perfect. I do scars, dirt, sweat, and fire. I do family hugs, ocean dives, tattoos, and Harley rides through the desert. And that’s what I hope you feel when you look through these images. This isn’t just a gallery of my face—it’s a gallery of my life.
+      <br><br>
+      I want the world to see that I’m not a superhero—I just play one on screen. Off camera, I’m a storyteller, a father, a brother, a son of the islands. I love art, nature, motorcycles, and people who speak with their hearts.
+      <br><br>
+      So here’s a glimpse into my world. Through these images, you’ll see me laugh, fight, explore, create, and just be. Thanks for being a part of it.
+      <br><br>
+      — Jason
+    </div>
 
     <div class="gallery-grid">
         {% for image in images %}
@@ -22,45 +114,5 @@
             </div>
         {% endfor %}
     </div>
-</div>
-
-<style>
-.gallery-container {
-    text-align: center;
-    padding: 20px;
-}
-
-.gallery-container h2 {
-    font-size: 2.2rem;
-    color: var(--primary-color);
-    margin-bottom: 10px;
-}
-
-.gallery-welcome {
-    max-width: 900px;
-    margin: 0 auto 30px;
-    font-size: 1rem;
-    color: #555;
-    line-height: 1.7;
-    text-align: justify;
-}
-
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-}
-
-.gallery-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-}
-
-.gallery-item p {
-    margin-top: 10px;
-    color: #444;
-}
-</style>
+  </div>
 {% endblock %}

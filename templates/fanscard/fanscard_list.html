@@ -7,7 +7,6 @@
     <div class="fanscard-grid">
         {% for card in cards %}
         <div class="fanscard-item">
-            
             <div class="card-image-container">
                 <a href="{% url 'fanscard_detail' card.pk %}">
                     <img src="{{ card.image.url }}" alt="{{ card.name }}">
@@ -23,13 +22,17 @@
                 <p class="card-price">${{ card.price }}</p>
                 <p class="card-quantity">Stock: {{ card.quantity }}</p>
             </div>
-
         </div>
         {% endfor %}
     </div>
 </div>
 
 <style>
+body {
+    background: linear-gradient(120deg, #0d0d0d, #1a1a1a);
+    color: #e8e8e8;
+}
+
 .fanscard-container {
     max-width: 1300px;
     margin: 40px auto;
@@ -39,8 +42,9 @@
 
 .store-title {
     font-size: 2.8rem;
-    color: #222;
+    color: var(--accent-color, #ff4500);
     margin-bottom: 30px;
+    text-shadow: 2px 2px 8px rgba(255, 60, 0, 0.6);
 }
 
 .fanscard-grid {
@@ -50,17 +54,18 @@
 }
 
 .fanscard-item {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.03);
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 25px rgba(255, 60, 0, 0.1);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     position: relative;
+    backdrop-filter: blur(5px);
 }
 
 .fanscard-item:hover {
     transform: translateY(-7px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 30px rgba(255, 60, 0, 0.3);
 }
 
 .card-image-container {
@@ -73,6 +78,7 @@
     height: 220px;
     object-fit: cover;
     transition: transform 0.4s ease;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .fanscard-item:hover .card-image-container img {
@@ -96,17 +102,18 @@
 }
 
 .details-btn {
-    background: #0d6efd;
+    background: var(--accent-color, #ff4500);
     color: #fff;
     padding: 10px 20px;
     border-radius: 25px;
     text-decoration: none;
     font-weight: bold;
     transition: background 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 60, 0, 0.3);
 }
 
 .details-btn:hover {
-    background: #084dbf;
+    background: #c73700;
 }
 
 .card-content {
@@ -116,26 +123,26 @@
 
 .card-title {
     font-size: 1.2rem;
-    color: #333;
+    color: #fff;
     margin: 5px 0;
 }
 
 .card-type {
     font-size: 0.9rem;
-    color: #777;
+    color: #aaa;
     margin: 3px 0;
 }
 
 .card-price {
     font-size: 1.4rem;
-    color: #e63946;
+    color: #ff5e57;
     margin: 8px 0;
     font-weight: bold;
 }
 
 .card-quantity {
     font-size: 0.9rem;
-    color: #444;
+    color: #ccc;
 }
 
 /* Responsive for Tablets (iPads, etc.) */

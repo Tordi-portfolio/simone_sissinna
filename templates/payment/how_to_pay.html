@@ -3,64 +3,72 @@
 {% block content %}
 
 <style>
+    body {
+        background: linear-gradient(to right, #0d0d0d, #1a1a1a);
+        color: #eee;
+    }
+
     .guide-container {
         max-width: 700px;
         margin: 50px auto;
-        background: #fff;
+        background: rgba(255, 255, 255, 0.04);
         padding: 2rem;
         border-radius: 15px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        font-family: Arial, sans-serif;
+        box-shadow: 0 0 25px rgba(0, 191, 255, 0.05);
+        font-family: 'Poppins', sans-serif;
         animation: fadeIn 0.8s ease;
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .guide-container h2 {
         text-align: center;
-        color: var(--primary-color, #0d6efd);
-        margin-bottom: 1.5rem;
+        color: #00bfff;
+        margin-bottom: 2rem;
     }
 
     .step {
         margin-bottom: 1.5rem;
-        padding: 1rem;
-        background: #f8f9fa;
-        border-left: 5px solid var(--primary-color, #0d6efd);
-        border-radius: 8px;
+        padding: 1.2rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-left: 4px solid #00bfff;
+        border-radius: 10px;
         transition: box-shadow 0.3s;
     }
 
     .step:hover {
-        box-shadow: 0 0 12px rgba(13, 110, 253, 0.15);
+        box-shadow: 0 0 12px rgba(0, 191, 255, 0.15);
     }
 
     .step h4 {
         margin-bottom: 0.5rem;
-        color: #333;
+        color: #eee;
     }
 
     .step p {
-        color: #555;
+        color: #ccc;
         line-height: 1.6;
     }
 
     .payment-link {
         display: block;
         text-align: center;
-        background: #198754;
+        background: #00bfff;
         color: #fff;
-        padding: 0.9rem;
-        border-radius: 10px;
+        padding: 1rem;
+        border-radius: 12px;
         font-size: 1rem;
         font-weight: bold;
         margin: 2rem 0;
         text-decoration: none;
         transition: background 0.3s, transform 0.2s;
+        box-shadow: 0 4px 12px rgba(0, 191, 255, 0.2);
     }
 
     .payment-link:hover {
-        background: #157347;
+        background: #009fd4;
         transform: translateY(-2px);
-        box-shadow: 0 0 10px rgba(25, 135, 84, 0.3);
+        box-shadow: 0 8px 16px rgba(0, 191, 255, 0.3);
     }
 
     .contact-buttons {
@@ -68,18 +76,19 @@
         gap: 1rem;
         flex-wrap: wrap;
         justify-content: center;
-        margin-top: 1.5rem;
+        margin-top: 2rem;
     }
 
     .whatsapp-btn, .telegram-btn {
         flex: 1;
         text-align: center;
-        padding: 0.8rem;
-        border-radius: 8px;
+        padding: 0.9rem;
+        border-radius: 10px;
         color: #fff;
         text-decoration: none;
         font-weight: bold;
-        max-width: 200px;
+        max-width: 220px;
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
     }
 
     .whatsapp-btn {
@@ -87,7 +96,9 @@
     }
 
     .whatsapp-btn:hover {
-        background: #1ebd59;
+        background: #1ebe5b;
+        transform: translateY(-2px);
+        box-shadow: 0 0 10px rgba(37, 211, 102, 0.3);
     }
 
     .telegram-btn {
@@ -96,6 +107,8 @@
 
     .telegram-btn:hover {
         background: #1b8fc4;
+        transform: translateY(-2px);
+        box-shadow: 0 0 10px rgba(34, 158, 217, 0.3);
     }
 
     @keyframes fadeIn {
@@ -116,7 +129,11 @@
         }
 
         .step {
-            padding: 0.8rem;
+            padding: 1rem;
+        }
+
+        .whatsapp-btn, .telegram-btn {
+            max-width: 100%;
         }
     }
 </style>
