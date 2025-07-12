@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +8,7 @@
   <title>Jason Momoa</title>
 
   <style>
+    /* NAV & FOOTER */
     nav.navbar {
       background: rgba(255, 255, 255, 0.03);
       backdrop-filter: blur(10px);
@@ -40,10 +43,6 @@
       gap: 20px;
     }
 
-    nav.navbar ul.nav-links li {
-      display: inline;
-    }
-
     nav.navbar ul.nav-links li a {
       text-decoration: none;
       color: #eee;
@@ -68,7 +67,6 @@
       left: 0;
     }
 
-    /* Footer Styling */
     footer {
       background: rgba(255, 255, 255, 0.03);
       padding: 40px 30px;
@@ -76,10 +74,6 @@
       backdrop-filter: blur(10px);
       box-shadow: 0 0 30px rgba(255, 60, 0, 0.1);
       margin-top: 50px;
-    }
-
-    .footer-section {
-      margin-bottom: 30px;
     }
 
     .footer-section h4 {
@@ -98,9 +92,7 @@
       transition: color 0.3s ease;
     }
 
-    .footer-section a:hover {
-      color: #ff3c00;
-    }
+    .footer-section a:hover { color: #ff3c00; }
 
     .footer-bottom {
       text-align: center;
@@ -162,6 +154,80 @@
         padding: 8px 0;
       }
     }
+
+    /* TOAST STYLES */
+    .toast-wrapper {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(145deg, rgba(25,25,25,0.9), rgba(45,45,45,0.9));
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      animation: slideIn 0.5s ease forwards;
+      position: relative;
+    }
+
+    .toast-icon {
+      margin-right: 12px;
+      font-size: 20px;
+    }
+
+    .toast-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      color: #ccc;
+      cursor: pointer;
+      font-size: 18px;
+      transition: color 0.3s ease;
+    }
+
+    .toast-close:hover { color: #fff; }
+
+    .toast.success { border-left: 5px solid #1dd1a1; }
+    .toast.error, .toast.danger { border-left: 5px solid #ee5253; }
+    .toast.info { border-left: 5px solid #54a0ff; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .notif-badge {
+      background: red;
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: 50%;
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      font-weight: bold;
+      display: none;
+      box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+      animation: pulseAnim 1.5s infinite;
+    }
+
+    @keyframes pulseAnim {
+      0% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 0, 0, 0.7); }
+      50% { transform: scale(1.2); box-shadow: 0 0 12px rgba(255, 0, 0, 1); }
+      100% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 0, 0, 0.7); }
+    }
   </style>
 </head>
 <body>
@@ -170,7 +236,6 @@
   <div class="logo">⚡ Jason Momoa</div>
   <button class="menu-toggle" onclick="toggleMenu()">☰</button>
   <ul class="nav-links" id="navLinks">
-    <!-- <li><a href="{% url 'product_list' %}">product_list</a></li> -->
     <li><a href="{% url 'home' %}">Home</a></li>
     <li><a href="{% url 'author' %}">Author</a></li>
     <li><a href="{% url 'gallary' %}">Movies</a></li>
@@ -188,7 +253,6 @@
       <li><a href="{% url 'login' %}">Login</a></li>
       <li><a href="{% url 'register' %}">Register</a></li>
     {% endif %}
-
     {% if user.is_staff %}
       <li><p style="margin: 10px 0; color: #ff3c00;">Admins Only</p></li>
       <li>
@@ -204,28 +268,15 @@
   </ul>
 </nav>
 
-<script>
-  function toggleMenu() {
-    document.getElementById('navLinks').classList.toggle('show');
-  }
-</script>
-
-<nav>
-  
-  {% if messages %}
+{% if messages %}
 <div class="toast-wrapper">
   {% for message in messages %}
     <div class="toast {{ message.tags }}">
       <span class="toast-icon">
-        {% if message.tags == 'success' %}
-          ✅
-        {% elif message.tags == 'error' or message.tags == 'danger' %}
-          ❌
-        {% elif message.tags == 'info' %}
-          ℹ️
-        {% else %}
-          ⚠️
-        {% endif %}
+        {% if message.tags == 'success' %} ✅
+        {% elif message.tags == 'error' or message.tags == 'danger' %} ❌
+        {% elif message.tags == 'info' %} ℹ️
+        {% else %} ⚠️ {% endif %}
       </span>
       <span class="toast-text">{{ message }}</span>
       <span class="toast-close" onclick="this.parentElement.remove()">✖</span>
@@ -233,97 +284,6 @@
   {% endfor %}
 </div>
 {% endif %}
-
-<style>
-  .toast {
-  position: relative;
-  padding-right: 40px; /* Space for close button */
-}
-
-.toast-close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  color: #ccc;
-  cursor: pointer;
-  font-size: 18px;
-  transition: color 0.3s ease;
-}
-
-.toast-close:hover {
-  color: #fff;
-}
-
-.toast-wrapper {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.toast {
-  display: flex;
-  align-items: center;
-  padding: 15px 20px;
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
-  background: linear-gradient(145deg, rgba(25,25,25,0.9), rgba(45,45,45,0.9));
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-  color: #fff;
-  font-family: 'Poppins', sans-serif;
-  font-size: 16px;
-  animation: slideIn 0.5s ease forwards;
-  position: relative;
-  overflow: hidden;
-}
-
-.toast-icon {
-  margin-right: 12px;
-  font-size: 20px;
-}
-
-.toast.success {
-  border-left: 5px solid #1dd1a1;
-}
-
-.toast.error, .toast.danger {
-  border-left: 5px solid #ee5253;
-}
-
-.toast.info {
-  border-left: 5px solid #54a0ff;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-
-</style>
-
-
-<script>
-  setTimeout(() => {
-    document.querySelectorAll('.toast').forEach(toast => {
-      toast.style.opacity = '0';
-      toast.style.transform = 'translateX(100px)';
-      setTimeout(() => toast.remove(), 500);
-    });
-  }, 5000);
-</script>
-
-</nav>
 
 {% block content %} {% endblock %}
 
@@ -345,6 +305,86 @@
   </div>
   <div class="footer-bottom">&copy; {{ year }} Jason Momoa. All rights reserved.</div>
 </footer>
+
+<audio id="notifySound" src="{% static 'sounds/ringtone.mp3' %}" preload="auto"></audio>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('show');
+  }
+
+  function updateUnreadCount() {
+    fetch("{% url 'get_unread_count' %}")
+      .then(response => response.json())
+      .then(data => {
+        const badge = document.getElementById('chatBadge');
+        if (badge) {
+          badge.textContent = data.unread_count;
+          badge.style.display = data.unread_count > 0 ? 'inline-block' : 'none';
+        }
+      });
+  }
+
+  function checkForNewMessages() {
+    fetch("{% url 'get_new_messages' %}")
+      .then(response => response.json())
+      .then(data => {
+        const isStaff = {{ user.is_staff|yesno:"true,false" }};
+        const badge = isStaff ? document.getElementById('adminBadge') : document.getElementById('chatBadge');
+
+        if (badge) {
+          badge.textContent = data.unread_count;
+          badge.style.display = data.unread_count > 0 ? 'inline-block' : 'none';
+        }
+
+        if (data.latest_message) {
+          showPopup(data.latest_message);
+          document.getElementById('notifySound').play();
+        }
+      });
+  }
+
+  function showPopup(message) {
+    const container = document.querySelector('.toast-wrapper') || createToastContainer();
+    const toast = document.createElement('div');
+    toast.className = 'toast info';
+    toast.innerHTML = `
+      <span class="toast-icon">ℹ️</span>
+      <span class="toast-text">${message}</span>
+      <span class="toast-close" onclick="this.parentElement.remove()">✖</span>
+    `;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(100px)';
+      setTimeout(() => toast.remove(), 500);
+    }, 5000);
+  }
+
+  function createToastContainer() {
+    const container = document.createElement('div');
+    container.className = 'toast-wrapper';
+    document.body.appendChild(container);
+    return container;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    updateUnreadCount();
+    checkForNewMessages();
+  });
+
+  setInterval(updateUnreadCount, 5000);
+  setInterval(checkForNewMessages, 5000);
+
+  setTimeout(() => {
+    document.querySelectorAll('.toast').forEach(toast => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(100px)';
+      setTimeout(() => toast.remove(), 500);
+    });
+  }, 5000);
+</script>
 
 </body>
 </html>
