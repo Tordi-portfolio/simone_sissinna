@@ -1,370 +1,365 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 
 {% block content %}
-<h2 style="margin-bottom: 1rem; color: var(--primary-color); text-align: center; font-size: 1.2rem;">
-    Chat with Admin
-</h2>
-
-<div class="chatzone-container">
-    <div class="chatzone-chatbox" id="chatBox">
-        {% for msg in messages %}
-            <div class="chatzone-bubble {% if msg.sender == request.user %}chatzone-sent{% else %}chatzone-received{% endif %}">
-                <div class="chatzone-bubble-content">
-                    <div class="chatzone-sender">{{ msg.sender.username }}</div>
-
-                    {% if msg.file %}
-                        {% with msg.file.url|lower as file_url %}
-                            {% if file_url|slice:"-5:" == ".webm" or file_url|slice:"-4:" == ".mp3" or file_url|slice:"-4:" == ".wav" %}
-                                <audio controls class="chatzone-media">
-                                    <source src="{{ msg.file.url }}">
-                                </audio>
-                            {% elif file_url|slice:"-4:" == ".mp4" %}
-                                <video controls class="chatzone-media">
-                                    <source src="{{ msg.file.url }}">
-                                </video>
-                            {% else %}
-                                <img src="{{ msg.file.url }}" alt="Image" class="chatzone-media">
-                            {% endif %}
-                        {% endwith %}
-                    {% endif %}
-
-                    {% if msg.message %}
-                        <div class="chatzone-text">{{ msg.message }}</div>
-                    {% endif %}
-
-                    <div class="chatzone-time">{{ msg.timestamp|date:"H:i" }}</div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-
-    <div class="chatzone-preview" id="previewContainer" style="display: none;">
-        <span id="removePreview" class="chatzone-remove">✖</span>
-        <div id="previewContent"></div>
-    </div>
-
-    <form method="POST" enctype="multipart/form-data" class="chatzone-input-area">
-        {% csrf_token %}
-        <div class="chatzone-input-container">
-            <input type="file" id="file-upload" name="file" accept="image/*,video/*" style="display: none;">
-            <input type="file" id="voice-file" name="file" style="display: none;">
-            <input type="text" name="message" class="chatzone-input" placeholder="Type your message...">
-            <button type="button" id="attachBtn" class="chatzone-icon" title="Attach file">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" viewBox="0 0 24 24">
-                  <path d="M16.5,6.5 L9.91,13.09 C9.13,13.87 7.87,13.87 7.09,13.09 C6.31,12.31 6.31,11.05 7.09,10.27 L13.68,3.68 C15.24,2.12 17.76,2.12 19.32,3.68 C20.88,5.24 20.88,7.76 19.32,9.32 L11.5,17.14 C9.57,19.07 6.43,19.07 4.5,17.14 C2.57,15.21 2.57,12.07 4.5,10.14 L12,2.64" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
-                </svg>
-            </button>
-            <button type="button" id="recordBtn" class="chatzone-icon" title="Record voice">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" viewBox="0 0 16 16">
-                  <path d="M8 12a3 3 0 0 0 3-3V4a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3z"/>
-                  <path d="M5 10.5a.5.5 0 0 1 1 0A2 2 0 0 0 8 12a2 2 0 0 0 2-1.5.5.5 0 0 1 1 0A3 3 0 0 1 8 13a3 3 0 0 1-3-2.5z"/>
-                  <path d="M8 14.5a.5.5 0 0 1-.5-.5V13h1v1a.5.5 0 0 1-.5.5z"/>
-                </svg>
-            </button>
-        </div>
-        <button type="submit" class="chatzone-send">➤</button>
-    </form>
-</div>
-
 <style>
-:root {
-    --primary-color: #007bff;
-    --text-color: #333;
-}
+  body {
+    background: linear-gradient(120deg, #0d0d0d, #1a1a1a);
+    color: #e8e8e8;
+  }
 
-.chatzone-container {
-    max-width: 600px;
-    margin: 0 auto;
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  .chat-container {
+    max-width: 700px;
+    margin: 2rem auto;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    padding: 1rem;
+    box-shadow: 0 0 30px rgba(255, 60, 0, 0.2);
     display: flex;
     flex-direction: column;
     height: 80vh;
     overflow: hidden;
-    position: relative;
-}
+    animation: fadeIn 1s ease-in-out;
+  }
 
-.chatzone-chatbox {
+  .chat-title {
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #ff3c00;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 10px rgba(255, 60, 0, 0.6);
+  }
+
+  .chat-box {
     flex: 1;
     overflow-y: auto;
     padding: 1rem;
-    background: #f0f2f5;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
-}
+    gap: 0.8rem;
+    scrollbar-width: thin;
+  }
 
-.chatzone-bubble {
+  .bubble {
     max-width: 70%;
-    padding: 0.6rem 0.9rem;
+    padding: 0.7rem 1rem;
     border-radius: 20px;
-    background: #e9ecef;
-    color: #333;
-    font-size: 0.9rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    word-wrap: break-word;
-}
+    font-size: 0.95rem;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    word-break: break-word;
+    animation: slideIn 0.4s ease-in-out;
+  }
 
-.chatzone-sent {
+  .sent {
     align-self: flex-end;
-    background: var(--primary-color);
-    color: #fff;
-}
+    background: #ff3c00;
+    color: white;
+  }
 
-.chatzone-received {
+  .received {
     align-self: flex-start;
-}
+    background: rgba(255, 255, 255, 0.06);
+    color: #ccc;
+  }
 
-.chatzone-sender {
+  .sender {
     font-weight: bold;
     font-size: 0.8rem;
-}
+    margin-bottom: 0.2rem;
+  }
 
-.chatzone-media {
-    max-width: 180px;
-    max-height: 180px;
-    border-radius: 8px;
+  .chat-media {
     margin-top: 5px;
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 10px;
     object-fit: cover;
-}
+  }
 
-.chatzone-text {
-    margin-top: 4px;
-}
-
-.chatzone-time {
+  .timestamp {
     font-size: 0.7rem;
     text-align: right;
-    opacity: 0.6;
-    margin-top: 2px;
-}
+    margin-top: 0.3rem;
+    color: #888;
+  }
 
-.chatzone-preview {
-    display: flex;
+  .preview-area {
+    display: none;
     align-items: center;
     gap: 0.5rem;
-    background: #f1f1f1;
-    padding: 0.4rem 0.6rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
-    margin: 0.5rem;
-    max-width: 200px;
+    margin-top: 0.6rem;
     position: relative;
-}
+  }
 
-.chatzone-remove {
+  .remove-preview {
     position: absolute;
     top: -6px;
     right: -6px;
-    background: red;
-    color: #fff;
+    background: #ff0000;
+    color: white;
     border-radius: 50%;
     font-size: 0.7rem;
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     text-align: center;
-    line-height: 16px;
+    line-height: 18px;
     cursor: pointer;
-}
+  }
 
-.chatzone-input-area {
+  .chat-input-form {
     display: flex;
-    align-items: center;
-    padding: 0.5rem;
-    background: #fff;
-    border-top: 1px solid #ddd;
+    flex-direction: row;
     gap: 0.5rem;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    position: sticky;
-    bottom: 0;
-    z-index: 10;
-}
+    margin-top: 0.8rem;
+    align-items: center;
+  }
 
-.chatzone-input-container {
+  .chat-input-group {
     flex: 1;
     display: flex;
     align-items: center;
-    background: #f1f1f1;
-    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 30px;
     padding: 0.4rem 1rem;
     position: relative;
-}
+  }
 
-.chatzone-input {
+  .chat-input {
     flex: 1;
     border: none;
-    outline: none;
     background: transparent;
+    color: white;
     font-size: 1rem;
-    min-height: 38px;
-    padding-right: 90px;
-}
+    padding-right: 80px;
+    outline: none;
+  }
 
-.chatzone-icon {
+  .chat-icon-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 48px;
-    background: var(--primary-color);
-    border: none;
+    right: 50px;
+    background: #ff3c00;
+    border-radius: 50%;
     width: 32px;
     height: 32px;
-    border-radius: 50%;
     display: grid;
     place-items: center;
     cursor: pointer;
-    margin-left: 6px;
     transition: background 0.3s ease;
-}
+  }
 
-.chatzone-icon:last-of-type {
+  .chat-icon-btn:last-of-type {
     right: 10px;
-}
+  }
 
-.chatzone-icon svg {
-    fill: #fff;
+  .chat-icon-btn svg {
+    fill: white;
     width: 18px;
     height: 18px;
-}
+  }
 
-.chatzone-send {
-    background: var(--primary-color);
-    color: #fff;
+  .send-btn {
+    background: #ff3c00;
+    color: white;
     border: none;
-    width: 42px;
-    height: 42px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     font-size: 1rem;
     cursor: pointer;
-    display: grid;
-    place-items: center;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-    flex-shrink: 0;
-}
+    box-shadow: 0 0 10px rgba(255, 60, 0, 0.4);
+    transition: all 0.3s ease;
+  }
 
-.chatzone-send:hover {
-    background: #084dbf;
-}
+  .send-btn:hover {
+    box-shadow: 0 0 18px rgba(255, 60, 0, 0.7);
+  }
 
-/* Mobile */
-@media (max-width: 600px) {
-    .chatzone-container {
-        height: 85vh;
-        border-radius: 0;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateY(10px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .chat-container {
+      height: 90vh;
+      margin: 1rem;
     }
 
-    .chatzone-input-area {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.5rem;
-        padding: 0.6rem;
+    .chat-title {
+      font-size: 1.2rem;
     }
 
-    .chatzone-input-container {
-        width: 100%;
-        padding: 0.4rem 0.9rem;
-        border-radius: 20px;
+    .chat-input-form {
+      flex-direction: column;
+      gap: 0.6rem;
     }
 
-    .chatzone-input {
-        padding-right: 90px;
-        font-size: 1rem;
+    .send-btn {
+      width: 100%;
+      border-radius: 10px;
     }
-
-    .chatzone-send {
-        width: 100%;
-        height: 45px;
-        font-size: 1rem;
-        border-radius: 10px;
-    }
-
-    .chatzone-preview {
-        max-width: 100%;
-        margin: 0.5rem;
-    }
-}
+  }
 </style>
 
+<div class="chat-container">
+  <div class="chat-title">Chat with Admin</div>
+
+  <div class="chat-box" id="chatBox">
+    {% for msg in messages %}
+      <div class="bubble {% if msg.sender == request.user %}sent{% else %}received{% endif %}">
+        <div class="sender">{{ msg.sender.username }}</div>
+
+        {% if msg.file %}
+          {% with msg.file.url|lower as file_url %}
+            {% if file_url|slice:"-5:" == ".webm" or file_url|slice:"-4:" == ".mp3" or file_url|slice:"-4:" == ".wav" %}
+              <audio controls class="chat-media">
+                <source src="{{ msg.file.url }}">
+              </audio>
+            {% elif file_url|slice:"-4:" == ".mp4" %}
+              <video controls class="chat-media">
+                <source src="{{ msg.file.url }}">
+              </video>
+            {% else %}
+              <img src="{{ msg.file.url }}" alt="Image" class="chat-media">
+            {% endif %}
+          {% endwith %}
+        {% endif %}
+
+        {% if msg.message %}
+          <div>{{ msg.message }}</div>
+        {% endif %}
+
+        <div class="timestamp">{{ msg.timestamp|date:"H:i" }}</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="preview-area" id="previewContainer">
+    <span id="removePreview" class="remove-preview">✖</span>
+    <div id="previewContent"></div>
+  </div>
+
+  <form method="POST" enctype="multipart/form-data" class="chat-input-form">
+    {% csrf_token %}
+    <div class="chat-input-group">
+      <input type="file" id="file-upload" name="file" accept="image/*,video/*" hidden>
+      <input type="file" id="voice-file" name="file" hidden>
+      <input type="text" name="message" class="chat-input" placeholder="Type a message...">
+      <button type="button" id="attachBtn" class="chat-icon-btn" title="Attach file">
+        📎
+      </button>
+      <button type="button" id="recordBtn" class="chat-icon-btn" title="Record voice">
+        🎤
+      </button>
+    </div>
+    <button type="submit" class="send-btn">➤</button>
+  </form>
+</div>
+
 <script>
-const chatWindow = document.getElementById('chatBox');
-chatWindow.scrollTop = chatWindow.scrollHeight;
+  const chatWindow = document.getElementById('chatBox');
+  chatWindow.scrollTop = chatWindow.scrollHeight;
 
-const fileInput = document.getElementById('file-upload');
-const previewContainer = document.getElementById('previewContainer');
-const previewContent = document.getElementById('previewContent');
-const removePreview = document.getElementById('removePreview');
-const voiceInput = document.getElementById('voice-file');
-const recordBtn = document.getElementById('recordBtn');
-const attachBtn = document.getElementById('attachBtn');
+  const fileInput = document.getElementById('file-upload');
+  const previewContainer = document.getElementById('previewContainer');
+  const previewContent = document.getElementById('previewContent');
+  const removePreview = document.getElementById('removePreview');
+  const voiceInput = document.getElementById('voice-file');
+  const recordBtn = document.getElementById('recordBtn');
+  const attachBtn = document.getElementById('attachBtn');
 
-attachBtn.addEventListener("click", () => fileInput.click());
+  attachBtn.addEventListener("click", () => fileInput.click());
 
-fileInput.addEventListener('change', () => {
+  fileInput.addEventListener('change', () => {
     previewContent.innerHTML = '';
     if (fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        const type = file.type;
-        if (type.startsWith('image/')) {
-            const img = document.createElement('img');
-            img.src = URL.createObjectURL(file);
-            previewContent.appendChild(img);
-        } else if (type.startsWith('video/')) {
-            const video = document.createElement('video');
-            video.src = URL.createObjectURL(file);
-            video.controls = true;
-            previewContent.appendChild(video);
-        }
-        previewContainer.style.display = 'flex';
+      const file = fileInput.files[0];
+      const type = file.type;
+      if (type.startsWith('image/')) {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        img.style.maxWidth = '100px';
+        img.style.borderRadius = '10px';
+        previewContent.appendChild(img);
+      } else if (type.startsWith('video/')) {
+        const video = document.createElement('video');
+        video.src = URL.createObjectURL(file);
+        video.controls = true;
+        previewContent.appendChild(video);
+      }
+      previewContainer.style.display = 'flex';
     }
-});
+  });
 
-removePreview.addEventListener('click', () => {
+  removePreview.addEventListener('click', () => {
     fileInput.value = '';
     voiceInput.value = '';
     previewContainer.style.display = 'none';
-});
+  });
 
-let mediaRecorder;
-let audioChunks = [];
+  let mediaRecorder;
+  let audioChunks = [];
 
-recordBtn.addEventListener("click", async () => {
+  recordBtn.addEventListener("click", async () => {
     if (mediaRecorder && mediaRecorder.state === "recording") {
-        mediaRecorder.stop();
-        recordBtn.innerHTML = recordBtn.dataset.originalIcon || recordBtn.innerHTML;
-        return;
+      mediaRecorder.stop();
+      recordBtn.innerText = "🎤";
+      return;
     }
 
     try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorder = new MediaRecorder(stream);
-        audioChunks = [];
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder = new MediaRecorder(stream);
+      audioChunks = [];
 
-        mediaRecorder.ondataavailable = e => {
-            audioChunks.push(e.data);
-        };
+      mediaRecorder.ondataavailable = e => {
+        audioChunks.push(e.data);
+      };
 
-        mediaRecorder.onstop = () => {
-            const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
-            const file = new File([audioBlob], "voice_note.webm", { type: "audio/webm" });
-            const dataTransfer = new DataTransfer();
-            dataTransfer.items.add(file);
-            voiceInput.files = dataTransfer.files;
+      mediaRecorder.onstop = () => {
+        const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+        const file = new File([audioBlob], "voice_note.webm", { type: "audio/webm" });
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        voiceInput.files = dataTransfer.files;
 
-            const audioPreview = document.createElement("audio");
-            audioPreview.controls = true;
-            audioPreview.src = URL.createObjectURL(file);
-            previewContent.innerHTML = "";
-            previewContent.appendChild(audioPreview);
-            previewContainer.style.display = "flex";
-        };
+        const audioPreview = document.createElement("audio");
+        audioPreview.controls = true;
+        audioPreview.src = URL.createObjectURL(file);
+        previewContent.innerHTML = "";
+        previewContent.appendChild(audioPreview);
+        previewContainer.style.display = "flex";
+      };
 
-        mediaRecorder.start();
-        recordBtn.dataset.originalIcon = recordBtn.innerHTML;
-        recordBtn.innerHTML = "⏹️";
+      mediaRecorder.start();
+      recordBtn.innerText = "⏹️";
     } catch (err) {
-        alert("Microphone access denied or unsupported.");
+      alert("Microphone access denied or unsupported.");
     }
-});
+  });
 </script>
 {% endblock %}
