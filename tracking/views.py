@@ -33,3 +33,27 @@ def track_shipment(request):
         except Shipment.DoesNotExist:
             return render(request, 'tracking/tracking_result.html', {'error': 'Tracking ID not found'})
     return render(request, 'tracking/track_shipment.html')
+
+
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+
+def donate(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        amount = request.POST.get('amount')
+        method = request.POST.get('method')
+        message = request.POST.get('message')
+
+        # TODO: Save to database or integrate payment gateway
+
+        messages.success(request, f'Thank you, {name}! Your donation of ${amount} was received.')
+        return redirect('donate')
+    return render(request, 'donate.html')
+
+
+
+def doante_payment(request):
+    return render(request, 'donate_payment.html')

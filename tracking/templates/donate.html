@@ -1,0 +1,155 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  body {
+    background: linear-gradient(to bottom right, #0d0d0d, #1a1a1a);
+  }
+
+  .donation-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+
+  .donation-card {
+    max-width: 520px;
+    width: 100%;
+    padding: 35px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 0 30px rgba(255, 60, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    animation: fadeInUp 0.8s ease;
+  }
+
+  .donation-card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #ff3c00;
+    font-size: 28px;
+    text-shadow: 0 0 8px rgba(255, 60, 0, 0.5);
+    letter-spacing: 1px;
+  }
+
+  .donation-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .donation-form input,
+  .donation-form select,
+  .donation-form textarea {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.3s;
+    appearance: none;
+  }
+
+  .donation-form select option {
+    background-color: #1a1a1a;
+    color: #fff;
+  }
+
+  .donation-form input:focus,
+  .donation-form textarea:focus,
+  .donation-form select:focus {
+    border-color: #ff3c00;
+    box-shadow: 0 0 8px rgba(255, 60, 0, 0.4);
+  }
+
+  .donation-form textarea {
+    resize: none;
+    height: 100px;
+  }
+
+  .donation-form button {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    background: #ff3c00;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 12px rgba(255, 60, 0, 0.4);
+  }
+
+  .donation-form button:hover {
+    background: #e03600;
+    box-shadow: 0 0 20px rgba(255, 60, 0, 0.6);
+    transform: translateY(-1px);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .donation-card {
+      padding: 25px;
+    }
+  }
+</style>
+
+<div class="donation-wrapper">
+  <div class="donation-card">
+    <h2>Support Jason Momoa By Donating</h2>
+    <form method="post" class="donation-form">
+      {% csrf_token %}
+      <label for="name">Full Name</label>
+      <input type="text" name="name" id="name" placeholder="Your Name" required>
+
+      <label for="email">Email Address</label>
+      <input type="email" name="email" id="email" placeholder="your@email.com" required>
+
+      <label for="amount">Donation Amount (USD)</label>
+      <input type="number" name="amount" id="amount" placeholder="e.g. 50" min="1" required>
+
+      <label for="method">Payment Method</label>
+      <select name="method" id="method" required>
+        <option value="">-- Choose Payment Method --</option>
+        <option value="crypto">Crypto (BTC, ETH)</option>
+      </select>
+
+      <label for="message">Message to Jason (optional)</label>
+      <textarea name="message" id="message" placeholder="Write something nice..."></textarea>
+
+      <button type="submit">Send Payment Details</button>
+    </form>
+  </div>
+
+  <div class="donation-card">
+    <div class="donation-form">
+      <a href="{% url 'doante_payment' %}">
+        <button type="button">Go To Donate Page</button>
+      </a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
