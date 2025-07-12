@@ -19,19 +19,25 @@ class Shipment(models.Model):
     ]
 
     COMMODITY_CHOICES = [
-        ('Electronics', 'Electronics'),
-        ('Clothing', 'Clothing'),
-        ('Documents', 'Documents'),
-        ('Energy Commodities', 'Energy Commodities'),
-        ('Metals Commodities', 'Metals Commodities'),
-        ('Agricultural Commodities', 'Agricultural Commodities'),
-        ('Livestock and Meat Commodities', 'Livestock and Meat Commodities'),
-        ('Grains Commodities', 'Grains Commodities'),
-        ('Precious Metals', 'Precious Metals'),
-        ('Base Metals', 'Base Metals'),
-        ('Industrial and Construction Commodities', 'Industrial and Construction Commodities'),
+        ('Platinum Fan', 'Platinum Fan'),
+        ('Gold Fan', 'Gold Fan'),
+        ('Silver Fan', 'Silver Fan'),
+        ('Bronze Fan', 'Bronze Fan'),
+        ('Vip Fan', 'Vip Fan'),
         ('Fertilizers', 'Fertilizers'),
-        ('Other', 'Other'),
+        ('electronics', 'Electronics'),
+        ('fashion', 'Fashion'),
+        ('books', 'Books'),
+        ('home', 'Home'),
+        ('toys', 'Toys'),
+        ('car', 'Car'),
+        ('bicycle', 'Bicycle'),
+        ('clothe', 'Clothe'),
+        ('shoe', 'Shoe'),
+        ('bag', 'Bag'),
+        ('gun', 'Gun'),
+        ('cap', 'Cap'),
+        ('house', 'House'),
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -41,10 +47,9 @@ class Shipment(models.Model):
     service = models.CharField(max_length=100, choices=SERVICE_CHOICES)
     commodity = models.CharField(max_length=100, choices=COMMODITY_CHOICES)
     destination_country = models.CharField(max_length=100)
-    weight = models.DecimalField(max_digits=10, decimal_places=2)
-    quantity = models.PositiveIntegerField()
     note = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=20, choices=[
+        ('Pending', 'Pending'),
         ('Processing', 'Processing'),
         ('In Transit', 'In Transit'),
         ('At Customs', 'At Customs'),
