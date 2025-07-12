@@ -47,6 +47,7 @@ class Shipment(models.Model):
     service = models.CharField(max_length=100, choices=SERVICE_CHOICES)
     commodity = models.CharField(max_length=100, choices=COMMODITY_CHOICES)
     destination_country = models.CharField(max_length=100)
+    current_location = models.CharField(max_length=100, default='Processing', editable=False)
     note = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=20, choices=[
         ('Pending', 'Pending'),
