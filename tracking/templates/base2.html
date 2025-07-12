@@ -170,17 +170,13 @@
   <div class="logo">⚡ Jason Momoa</div>
   <button class="menu-toggle" onclick="toggleMenu()">☰</button>
   <ul class="nav-links" id="navLinks">
+    <!-- <li><a href="{% url 'product_list' %}">product_list</a></li> -->
     <li><a href="{% url 'home' %}">Home</a></li>
     <li><a href="{% url 'author' %}">Author</a></li>
     <li><a href="{% url 'gallary' %}">Movies</a></li>
     <li><a href="{% url 'gallery' %}">Gallery</a></li>
-    <li><a href="{% url 'fanscard_list' %}">Buy Standard Card</a></li>
-    <li><a href="{% url 'premiun_card' %}">Buy Premium Card</a></li>
-
+    <li><a href="{% url 'sell' %}">Market Place</a></li>
     {% if user.is_authenticated %}
-      <li><a href="{% url 'my_fanscard' %}">My Standard Card</a></li>
-      <li><a href="{% url 'my_cards' %}">My Premium Card</a></li>
-      <li><a href="{% url 'create_shipment' %}">Create Shipment</a></li>
       <li><a href="{% url 'track_shipment' %}">Track Shipment</a></li>
       <li>
         <a href="{% url 'chat_with_admin' %}">

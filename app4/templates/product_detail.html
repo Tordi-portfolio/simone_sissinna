@@ -1,0 +1,169 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block content %}
+<div class="product-detail-container">
+  <div class="product-detail-card">
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+    <h1 class="product-name">{{ product.name }}</h1>
+    <p class="original-price">${{ product.original_price }}</p>
+    <p class="discount-price">${{ product.discount_price }}</p>
+    <p class="save">🔥 Save {{ product.get_discount_percentage }}%</p>
+    <p class="description">{{ product.description }}</p>
+
+    <!-- Buy Now button -->
+    <button class="buy-btn">🛒 Buy Now</button>
+
+    <!-- Proceed to Payment or Login -->
+    {% if user.is_authenticated %}
+      <a href="{% url 'payment' %}" class="buy-btn">💳 Proceed to Payment</a>
+    {% else %}
+      <a href="{% url 'login' %}" class="buy-btn">🔐 Login to Purchase</a>
+    {% endif %}
+
+    <!-- Back to product list -->
+    <a href="{% url 'product_list' %}" class="back-link">← Back to Products</a>
+  </div>
+</div>
+
+<style>
+  :root {
+    --accent: #ff6a00;
+    --dark-bg: #0d0d0d;
+    --light-text: #f0f0f0;
+    --glass: rgba(255, 255, 255, 0.05);
+  }
+
+  body {
+    background: linear-gradient(135deg, #0c0c0c, #1a1a1a);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--light-text);
+  }
+
+  .product-detail-container {
+    display: flex;
+    justify-content: center;
+    padding: 3rem 1rem;
+  }
+
+  .product-detail-card {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    padding: 2.5rem;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(255, 106, 0, 0.2);
+    border: 1px solid rgba(255, 106, 0, 0.15);
+    animation: fadeInUp 0.6s ease;
+  }
+
+  .product-image {
+    width: 100%;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(255, 106, 0, 0.25);
+    margin-bottom: 1.5rem;
+  }
+
+  .product-name {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--accent);
+    text-shadow: 0 0 5px rgba(255, 106, 0, 0.3);
+  }
+
+  .original-price {
+    text-decoration: line-through;
+    color: #888;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  .discount-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ff6a00;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 8px rgba(255, 106, 0, 0.3);
+  }
+
+  .save {
+    color: lightgreen;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #ddd;
+    margin-bottom: 2rem;
+  }
+
+  .buy-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 14px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: var(--accent);
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 106, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 1rem;
+  }
+
+  .buy-btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(255, 106, 0, 0.5);
+  }
+
+  .back-link {
+    display: block;
+    margin-top: 2rem;
+    color: #aaa;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+  }
+
+  .back-link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(25px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .product-detail-card {
+      padding: 2rem 1rem;
+    }
+
+    .product-name,
+    .discount-price {
+      font-size: 1.6rem;
+    }
+
+    .buy-btn {
+      font-size: 1rem;
+      padding: 12px;
+    }
+  }
+</style>
+{% endblock %}
