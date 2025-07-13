@@ -1,0 +1,342 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  body {
+    background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .donation-hero {
+    padding: 100px 20px 60px;
+    text-align: center;
+    color: #fff;
+    background: radial-gradient(circle at top, rgba(255, 60, 0, 0.2), transparent);
+  }
+
+  .donation-hero h1 {
+    font-size: 48px;
+    font-weight: bold;
+    color: #ff3c00;
+    text-shadow: 0 0 12px rgba(255, 60, 0, 0.6);
+    margin-bottom: 20px;
+  }
+
+  .donation-hero p {
+    font-size: 18px;
+    max-width: 720px;
+    margin: 0 auto;
+    color: #ccc;
+    line-height: 1.6;
+  }
+
+  .section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: auto;
+    color: #eee;
+  }
+
+  .section h2 {
+    font-size: 32px;
+    color: #ff3c00;
+    text-align: center;
+    margin-bottom: 40px;
+    text-shadow: 0 0 8px rgba(255, 60, 0, 0.4);
+  }
+
+  .image-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .image-row img {
+    border-radius: 14px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 0 25px rgba(255, 60, 0, 0.15);
+  }
+
+  .image-row p {
+    flex: 1;
+    min-width: 280px;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+  }
+
+  .tier-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 6px solid #ff3c00;
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 14px;
+    color: #fff;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 60, 0, 0.1);
+  }
+
+  .tier-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(255, 60, 0, 0.3);
+  }
+
+  .tier-card h3 {
+    font-size: 22px;
+    color: #ff3c00;
+    margin-bottom: 10px;
+  }
+
+  .tier-card p {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .timeline {
+    margin-top: 40px;
+    border-left: 3px solid #ff3c00;
+    padding-left: 20px;
+  }
+
+  .timeline-entry {
+    margin-bottom: 30px;
+  }
+
+  .timeline-entry h4 {
+    margin-bottom: 8px;
+    color: #fff;
+    font-size: 20px;
+  }
+
+  .timeline-entry small {
+    color: #ccc;
+    font-size: 14px;
+  }
+
+  .donate-cta {
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .donate-btn {
+    display: inline-block;
+    background: #ff3c00;
+    color: #fff;
+    padding: 14px 28px;
+    font-weight: bold;
+    border-radius: 50px;
+    box-shadow: 0 0 12px rgba(255, 60, 0, 0.4);
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .donate-btn:hover {
+    background: #e03600;
+    transform: translateY(-1px);
+    box-shadow: 0 0 20px rgba(255, 60, 0, 0.6);
+  }
+
+  .testimonials {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .testimonial {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 20px;
+    border-left: 4px solid #54a0ff;
+    border-radius: 12px;
+    font-style: italic;
+    color: #ddd;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+  }
+
+  .stat-box {
+    background: rgba(255, 255, 255, 0.04);
+    padding: 20px;
+    border-radius: 14px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 4px 10px rgba(255, 60, 0, 0.1);
+  }
+
+  .stat-box h3 {
+    font-size: 36px;
+    color: #ff3c00;
+  }
+
+  .stat-box p {
+    font-size: 16px;
+    color: #ccc;
+  }
+
+  .faq {
+    margin-top: 60px;
+  }
+
+  .faq-item {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 20px;
+    border-radius: 14px;
+    margin-bottom: 15px;
+  }
+
+  .faq-item h4 {
+    margin-bottom: 10px;
+    color: #ff3c00;
+  }
+
+  .faq-item p {
+    font-size: 15px;
+    color: #ccc;
+  }
+
+  @media (max-width: 768px) {
+    .donation-hero h1 {
+      font-size: 34px;
+    }
+    .section h2 {
+      font-size: 28px;
+    }
+  }
+</style>
+
+<div class="donation-hero">
+  <h1>Support Jason Momoa’s Global Missions</h1>
+  <p>Jason Momoa isn’t just an actor — he’s a humanitarian. Your donation powers his efforts to bring clean water, protect sacred lands, and heal children’s hearts worldwide.</p>
+</div>
+
+<div class="section">
+  <h2>Where Your Help Goes</h2>
+  <div class="image-row">
+    <div>
+      <img src="{% static 'image/jason-ophange.jpeg' %}" alt="Jason Giving">
+    </div>
+    <p>
+      From the Pacific islands to the Amazon rainforest, Jason has personally led humanitarian aid efforts. Through his organization, the 222 Foundation, he has donated thousands of gallons of clean water, funded children's cancer treatments, and planted thousands of trees to fight deforestation.
+    </p>
+  </div>
+  <div class="image-row" style="margin-top: 30px;">
+    <img src="{% static 'image/jason-ophange-2.jpeg' %}" alt="Jason Momoa Water Africa">
+    <img src="{% static 'image/jason-ophange-3.jpeg' %}" alt="Jason with Helping Hands">
+  </div>
+</div>
+
+<div class="section">
+  <h2>Milestones & Timeline</h2>
+  <div class="timeline">
+    <div class="timeline-entry">
+      <h4>2021 – Water for Navajo Nation</h4>
+      <small>USA</small>
+      <p>Partnered with local tribes to deliver water tanks to drought-stricken areas.</p>
+    </div>
+    <div class="timeline-entry">
+      <h4>2022 – Amazon Reforestation Mission</h4>
+      <small>Brazil</small>
+      <p>Funded the planting of 10,000 trees and visited Indigenous tribes for cultural exchange.</p>
+    </div>
+    <div class="timeline-entry">
+      <h4>2023 – Ocean Cleanups with Sustainable Coastlines</h4>
+      <small>Hawaii & Fiji</small>
+      <p>Led ocean cleanup campaigns and educational talks in over 15 coastal schools.</p>
+    </div>
+  </div>
+
+  <div class="image-row" style="margin-top: 30px;">
+    <img src="{% static 'image/jason-ophange-4.jpeg' %}" alt="Ocean Cleanup">
+    <img src="{% static 'image/jason-ophange-5.jpeg' %}" alt="Jason in Hawaii with Kids">
+  </div>
+</div>
+
+<div class="section">
+  <h2>Donation Tiers</h2>
+  <div class="tiers">
+    <div class="tier-card">
+      <h3>$25 — Spark a Wish</h3>
+      <p>Provide a child with a care package or hospital activity kit.</p>
+    </div>
+    <div class="tier-card">
+      <h3>$50 — Clean Ocean Kit</h3>
+      <p>Supply gloves, bags, and gear for beach cleanups.</p>
+    </div>
+    <div class="tier-card">
+      <h3>$100 — Wildlife Rescue Aid</h3>
+      <p>Feed and care for rescued animals from fire zones.</p>
+    </div>
+    <div class="tier-card">
+      <h3>$250 — Tribal Empowerment</h3>
+      <p>Support land rights and healthcare for Native communities.</p>
+    </div>
+  </div>
+
+  <div class="image-row" style="margin-top: 40px;">
+    <img src="{% static 'image/jason-ophange-6.jpeg' %}" alt="Tree Planting Campaign">
+    <img src="{% static 'image/jason-ophange-7.jpeg' %}" alt="Earth Day Event with Jason Momoa">
+  </div>
+</div>
+
+<div class="section">
+  <h2>Impact in Numbers</h2>
+  <div class="stats-grid">
+    <div class="stat-box">
+      <h3>18+</h3>
+      <p>Countries Reached</p>
+    </div>
+    <div class="stat-box">
+      <h3>7.5K+</h3>
+      <p>Trees Planted</p>
+    </div>
+    <div class="stat-box">
+      <h3>500K+</h3>
+      <p>Plastic Items Removed</p>
+    </div>
+    <div class="stat-box">
+      <h3>1.2M</h3>
+      <p>Gallons of Water Donated</p>
+    </div>
+  </div>
+</div>
+
+<div class="section faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-item">
+    <h4>Is this donation tax deductible?</h4>
+    <p>Yes, donations to Jason Momoa’s 222 Foundation are fully tax deductible in most countries.</p>
+  </div>
+  <div class="faq-item">
+    <h4>Can I choose where my money goes?</h4>
+    <p>Yes! You can specify the project in your message field when donating.</p>
+  </div>
+  <div class="faq-item">
+    <h4>Can I donate anonymously?</h4>
+    <p>Absolutely. Just check the anonymous option at checkout or leave your name field blank.</p>
+  </div>
+</div>
+
+<div class="section donate-cta">
+  <h2>Be the Flame. Be the Change.</h2>
+  <p>Your generosity ignites global impact. Stand beside Jason and empower love, nature, and justice.</p>
+  <a href="{% url 'donate_payment' %}" class="donate-btn">Make a Donation</a>
+  <a href="{% url 'donate' %}" class="donate-btn">Fill A Donation Form</a>
+</div>
+{% endblock %}

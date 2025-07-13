@@ -55,5 +55,8 @@ def donate(request):
 
 
 
-def doante_payment(request):
+def donate_payment(request):
     return render(request, 'donate_payment.html')
+
+def donation_text(request):
+    return render(request, 'donation_text.html')
