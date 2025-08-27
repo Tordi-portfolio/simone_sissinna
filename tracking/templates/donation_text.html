@@ -12,14 +12,14 @@
     padding: 100px 20px 60px;
     text-align: center;
     color: #fff;
-    background: radial-gradient(circle at top, rgba(255, 60, 0, 0.2), transparent);
+    background: radial-gradient(circle at top, rgba(255, 153, 51, 0.2), transparent);
   }
 
   .donation-hero h1 {
     font-size: 48px;
     font-weight: bold;
-    color: #ff3c00;
-    text-shadow: 0 0 12px rgba(255, 60, 0, 0.6);
+    color: #ff9933;
+    text-shadow: 0 0 12px rgba(255, 153, 51, 0.6);
     margin-bottom: 20px;
   }
 
@@ -40,10 +40,10 @@
 
   .section h2 {
     font-size: 32px;
-    color: #ff3c00;
+    color: #ff9933;
     text-align: center;
     margin-bottom: 40px;
-    text-shadow: 0 0 8px rgba(255, 60, 0, 0.4);
+    text-shadow: 0 0 8px rgba(255, 153, 51, 0.4);
   }
 
   .image-row {
@@ -58,7 +58,7 @@
     border-radius: 14px;
     width: 100%;
     max-width: 500px;
-    box-shadow: 0 0 25px rgba(255, 60, 0, 0.15);
+    box-shadow: 0 0 25px rgba(255, 153, 51, 0.15);
   }
 
   .image-row p {
@@ -78,23 +78,23 @@
   .tier-card {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-left: 6px solid #ff3c00;
+    border-left: 6px solid #ff9933;
     backdrop-filter: blur(10px);
     padding: 25px;
     border-radius: 14px;
     color: #fff;
     transition: transform 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255, 60, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(255, 153, 51, 0.1);
   }
 
   .tier-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 18px rgba(255, 60, 0, 0.3);
+    box-shadow: 0 6px 18px rgba(255, 153, 51, 0.3);
   }
 
   .tier-card h3 {
     font-size: 22px;
-    color: #ff3c00;
+    color: #ff9933;
     margin-bottom: 10px;
   }
 
@@ -105,7 +105,7 @@
 
   .timeline {
     margin-top: 40px;
-    border-left: 3px solid #ff3c00;
+    border-left: 3px solid #ff9933;
     padding-left: 20px;
   }
 
@@ -131,37 +131,21 @@
 
   .donate-btn {
     display: inline-block;
-    background: #ff3c00;
+    background: #ff9933;
     color: #fff;
     padding: 14px 28px;
     font-weight: bold;
     border-radius: 50px;
-    box-shadow: 0 0 12px rgba(255, 60, 0, 0.4);
+    box-shadow: 0 0 12px rgba(255, 153, 51, 0.4);
     text-decoration: none;
     font-size: 16px;
     transition: all 0.3s ease;
   }
 
   .donate-btn:hover {
-    background: #e03600;
+    background: #e68a00;
     transform: translateY(-1px);
-    box-shadow: 0 0 20px rgba(255, 60, 0, 0.6);
-  }
-
-  .testimonials {
-    margin-top: 60px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .testimonial {
-    background: rgba(255, 255, 255, 0.03);
-    padding: 20px;
-    border-left: 4px solid #54a0ff;
-    border-radius: 12px;
-    font-style: italic;
-    color: #ddd;
+    box-shadow: 0 0 20px rgba(255, 153, 51, 0.6);
   }
 
   .stats-grid {
@@ -177,12 +161,12 @@
     border-radius: 14px;
     text-align: center;
     border: 1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 4px 10px rgba(255, 60, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(255, 153, 51, 0.1);
   }
 
   .stat-box h3 {
     font-size: 36px;
-    color: #ff3c00;
+    color: #ff9933;
   }
 
   .stat-box p {
@@ -203,7 +187,7 @@
 
   .faq-item h4 {
     margin-bottom: 10px;
-    color: #ff3c00;
+    color: #ff9933;
   }
 
   .faq-item p {
@@ -222,76 +206,71 @@
 </style>
 
 <div class="donation-hero">
-  <h1>Support Jason Momoa’s Global Missions</h1>
-  <p>Jason Momoa isn’t just an actor — he’s a humanitarian. Your donation powers his efforts to bring clean water, protect sacred lands, and heal children’s hearts worldwide.</p>
+  <h1>Support George Strait’s Legacy of Giving</h1>
+  <p>George Strait isn’t just the King of Country — he’s a champion for veterans, families, and music education. Your support fuels his efforts to honor those who serve and inspire future generations.</p>
 </div>
 
 <div class="section">
   <h2>Where Your Help Goes</h2>
   <div class="image-row">
-    <div>
-      <img src="{% static 'image/jason-ophange.jpeg' %}" alt="Jason Giving">
-    </div>
+    <!-- <div>
+      <img src="{% static 'image/george-tribute-1.jpg' %}" alt="George Strait Performing for Veterans">
+    </div> -->
     <p>
-      From the Pacific islands to the Amazon rainforest, Jason has personally led humanitarian aid efforts. Through his organization, the 222 Foundation, he has donated thousands of gallons of clean water, funded children's cancer treatments, and planted thousands of trees to fight deforestation.
+      From benefit concerts for veterans to funding rural schools with music programs, George Strait has raised millions to support communities across America. Through his foundation, he brings hope, healing, and harmony to those in need.
     </p>
   </div>
-  <div class="image-row" style="margin-top: 30px;">
-    <img src="{% static 'image/jason-ophange-2.jpeg' %}" alt="Jason Momoa Water Africa">
-    <img src="{% static 'image/jason-ophange-3.jpeg' %}" alt="Jason with Helping Hands">
-  </div>
+  <!-- <div class="image-row" style="margin-top: 30px;">
+    <img src="{% static 'image/george-tribute-2.jpg' %}" alt="George Strait Charity Event">
+    <img src="{% static 'image/george-tribute-3.jpg' %}" alt="George with Fans at Fundraiser">
+  </div> -->
 </div>
 
 <div class="section">
   <h2>Milestones & Timeline</h2>
   <div class="timeline">
     <div class="timeline-entry">
-      <h4>2021 – Water for Navajo Nation</h4>
+      <h4>2021 – Veterans Honor Tour</h4>
       <small>USA</small>
-      <p>Partnered with local tribes to deliver water tanks to drought-stricken areas.</p>
+      <p>Raised over $2 million to provide homes and healthcare to wounded veterans.</p>
     </div>
     <div class="timeline-entry">
-      <h4>2022 – Amazon Reforestation Mission</h4>
-      <small>Brazil</small>
-      <p>Funded the planting of 10,000 trees and visited Indigenous tribes for cultural exchange.</p>
+      <h4>2022 – Country Cares for Kids</h4>
+      <small>Texas</small>
+      <p>Funded music scholarships for 200+ rural students pursuing the arts.</p>
     </div>
     <div class="timeline-entry">
-      <h4>2023 – Ocean Cleanups with Sustainable Coastlines</h4>
-      <small>Hawaii & Fiji</small>
-      <p>Led ocean cleanup campaigns and educational talks in over 15 coastal schools.</p>
+      <h4>2023 – Farm Aid Partnership</h4>
+      <small>Nationwide</small>
+      <p>Supported family farms through benefit shows and grants.</p>
     </div>
   </div>
 
-  <div class="image-row" style="margin-top: 30px;">
-    <img src="{% static 'image/jason-ophange-4.jpeg' %}" alt="Ocean Cleanup">
-    <img src="{% static 'image/jason-ophange-5.jpeg' %}" alt="Jason in Hawaii with Kids">
-  </div>
+  <!-- <div class="image-row" style="margin-top: 30px;">
+    <img src="{% static 'image/george-tribute-4.jpg' %}" alt="George Strait Farm Aid Performance">
+    <img src="{% static 'image/george-tribute-5.jpg' %}" alt="George Strait with Veterans">
+  </div> -->
 </div>
 
 <div class="section">
   <h2>Donation Tiers</h2>
   <div class="tiers">
     <div class="tier-card">
-      <h3>$25 — Spark a Wish</h3>
-      <p>Provide a child with a care package or hospital activity kit.</p>
+      <h3>$25 — Tune a Dream</h3>
+      <p>Help supply instruments for a child in need.</p>
     </div>
     <div class="tier-card">
-      <h3>$50 — Clean Ocean Kit</h3>
-      <p>Supply gloves, bags, and gear for beach cleanups.</p>
+      <h3>$50 — Salute a Hero</h3>
+      <p>Provide care packages for deployed military personnel.</p>
     </div>
     <div class="tier-card">
-      <h3>$100 — Wildlife Rescue Aid</h3>
-      <p>Feed and care for rescued animals from fire zones.</p>
+      <h3>$100 — Fund a Future</h3>
+      <p>Support scholarships for aspiring young musicians.</p>
     </div>
     <div class="tier-card">
-      <h3>$250 — Tribal Empowerment</h3>
-      <p>Support land rights and healthcare for Native communities.</p>
+      <h3>$250 — Legacy Partner</h3>
+      <p>Empower ongoing programs for veterans and rural communities.</p>
     </div>
-  </div>
-
-  <div class="image-row" style="margin-top: 40px;">
-    <img src="{% static 'image/jason-ophange-6.jpeg' %}" alt="Tree Planting Campaign">
-    <img src="{% static 'image/jason-ophange-7.jpeg' %}" alt="Earth Day Event with Jason Momoa">
   </div>
 </div>
 
@@ -299,20 +278,20 @@
   <h2>Impact in Numbers</h2>
   <div class="stats-grid">
     <div class="stat-box">
-      <h3>18+</h3>
-      <p>Countries Reached</p>
+      <h3>40+</h3>
+      <p>Years of Giving</p>
     </div>
     <div class="stat-box">
-      <h3>7.5K+</h3>
-      <p>Trees Planted</p>
+      <h3>$50M+</h3>
+      <p>Raised for Charity</p>
     </div>
     <div class="stat-box">
-      <h3>500K+</h3>
-      <p>Plastic Items Removed</p>
+      <h3>500+</h3>
+      <p>Veterans Helped</p>
     </div>
     <div class="stat-box">
-      <h3>1.2M</h3>
-      <p>Gallons of Water Donated</p>
+      <h3>1,000+</h3>
+      <p>Students Supported</p>
     </div>
   </div>
 </div>
@@ -320,22 +299,22 @@
 <div class="section faq">
   <h2>Frequently Asked Questions</h2>
   <div class="faq-item">
-    <h4>Is this donation tax deductible?</h4>
-    <p>Yes, donations to Jason Momoa’s 222 Foundation are fully tax deductible in most countries.</p>
+    <h4>Is my donation tax deductible?</h4>
+    <p>Yes, donations to George Strait’s Foundation are tax-deductible in most countries.</p>
   </div>
   <div class="faq-item">
-    <h4>Can I choose where my money goes?</h4>
-    <p>Yes! You can specify the project in your message field when donating.</p>
+    <h4>Can I specify what my donation supports?</h4>
+    <p>Absolutely! You can direct your gift toward veterans, education, or general support.</p>
   </div>
   <div class="faq-item">
     <h4>Can I donate anonymously?</h4>
-    <p>Absolutely. Just check the anonymous option at checkout or leave your name field blank.</p>
+    <p>Yes, we respect your privacy. Simply check the anonymous option at checkout.</p>
   </div>
 </div>
 
 <div class="section donate-cta">
-  <h2>Be the Flame. Be the Change.</h2>
-  <p>Your generosity ignites global impact. Stand beside Jason and empower love, nature, and justice.</p>
+  <h2>Keep the Music Playing. Keep the Spirit Alive.</h2>
+  <p>Your generosity honors George Strait’s legacy of love, service, and timeless music. Join us in making a difference today.</p>
   <a href="{% url 'donate_payment' %}" class="donate-btn">Make a Donation</a>
   <a href="{% url 'donate' %}" class="donate-btn">Fill A Donation Form</a>
 </div>

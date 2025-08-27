@@ -4,7 +4,7 @@
 {% block content %}
 <style>
   body {
-    background: linear-gradient(to bottom right, #0d0d0d, #1a1a1a);
+    background: linear-gradient(to bottom right, #1a1a1a, #3b2f2f);
   }
 
   .donation-wrapper {
@@ -21,19 +21,19 @@
     width: 100%;
     padding: 35px;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(16px);
-    box-shadow: 0 0 30px rgba(255, 60, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 30px rgba(205, 164, 94, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     animation: fadeInUp 0.8s ease;
   }
 
   .donation-card h2 {
     text-align: center;
     margin-bottom: 25px;
-    color: #ff3c00;
+    color: #cda45e;
     font-size: 28px;
-    text-shadow: 0 0 8px rgba(255, 60, 0, 0.5);
+    text-shadow: 0 0 8px rgba(205, 164, 94, 0.5);
     letter-spacing: 1px;
   }
 
@@ -69,8 +69,8 @@
   .donation-form input:focus,
   .donation-form textarea:focus,
   .donation-form select:focus {
-    border-color: #ff3c00;
-    box-shadow: 0 0 8px rgba(255, 60, 0, 0.4);
+    border-color: #cda45e;
+    box-shadow: 0 0 8px rgba(205, 164, 94, 0.4);
   }
 
   .donation-form textarea {
@@ -82,19 +82,19 @@
     width: 100%;
     padding: 14px;
     font-size: 16px;
-    background: #ff3c00;
-    color: #fff;
+    background: #cda45e;
+    color: #000;
     border: none;
     border-radius: 14px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 0 12px rgba(255, 60, 0, 0.4);
+    box-shadow: 0 0 12px rgba(205, 164, 94, 0.4);
   }
 
   .donation-form button:hover {
-    background: #e03600;
-    box-shadow: 0 0 20px rgba(255, 60, 0, 0.6);
+    background: #b8904f;
+    box-shadow: 0 0 20px rgba(205, 164, 94, 0.6);
     transform: translateY(-1px);
   }
 
@@ -118,7 +118,7 @@
 
 <div class="donation-wrapper">
   <div class="donation-card">
-    <h2>Support Jason Momoa By Donating</h2>
+    <h2>Support George Harvey Strait</h2>
     <form method="post" class="donation-form">
       {% csrf_token %}
       <label for="name">Full Name</label>
@@ -136,8 +136,8 @@
         <option value="crypto">Crypto (BTC, ETH)</option>
       </select>
 
-      <label for="message">Message to Jason (optional)</label>
-      <textarea name="message" id="message" placeholder="Write something nice..."></textarea>
+      <label for="message">Message to George (optional)</label>
+      <textarea name="message" id="message" placeholder="Write a message..."></textarea>
 
       <button type="submit">Send Payment Details</button>
     </form>

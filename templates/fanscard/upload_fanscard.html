@@ -1,93 +1,127 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
+{% load static %}
 
 {% block content %}
 <div class="fanscard-upload-container">
     <h2>🛒 Upload New Fans Card</h2>
-    
+
     <form method="POST" enctype="multipart/form-data" class="fanscard-upload-form">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% for field in form %}
+        <div class="form-group">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.errors %}
+                <div class="error-msg">{{ field.errors|striptags }}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
         <button type="submit" class="upload-btn">Upload Product</button>
     </form>
 </div>
 
 <style>
+body {
+    background: linear-gradient(120deg, #0d0d0d, #1a1a1a);
+    color: #e8e8e8;
+    font-family: 'Poppins', sans-serif;
+}
+
 .fanscard-upload-container {
     max-width: 500px;
     margin: 60px auto;
     padding: 30px;
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(255, 60, 0, 0.2);
+    backdrop-filter: blur(8px);
 }
 
 .fanscard-upload-container h2 {
     text-align: center;
-    font-size: 1.8rem;
-    color: #222;
+    font-size: 2rem;
+    color: var(--accent-color, #ff4c29);
     margin-bottom: 25px;
+    text-shadow: 1px 1px 6px rgba(255,60,0,0.5);
 }
 
 .fanscard-upload-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 18px;
 }
 
-.fanscard-upload-form label {
+.form-group label {
     font-weight: 600;
     margin-bottom: 5px;
+    color: #fff;
 }
 
 .fanscard-upload-form input[type="file"],
 .fanscard-upload-form input[type="text"],
 .fanscard-upload-form input[type="number"],
 .fanscard-upload-form textarea {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
     font-size: 1rem;
     outline: none;
-    transition: border 0.3s ease;
+    background: rgba(255,255,255,0.03);
+    color: #e8e8e8;
+    transition: border 0.3s ease, background 0.3s ease;
 }
 
 .fanscard-upload-form input:focus,
 .fanscard-upload-form textarea:focus {
-    border-color: #0d6efd;
+    border-color: #ff4c29;
+    background: rgba(255,255,255,0.05);
 }
 
 .upload-btn {
-    padding: 12px;
-    background: linear-gradient(135deg, #0d6efd, #084dbf);
+    padding: 14px;
+    background: linear-gradient(135deg, #ff4c29, #ff5e57);
     color: #fff;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 1rem;
     cursor: pointer;
     font-weight: bold;
-    transition: background 0.3s ease;
+    box-shadow: 0 4px 14px rgba(255,60,0,0.4);
+    transition: all 0.3s ease;
 }
 
 .upload-btn:hover {
-    background: #084dbf;
+    transform: translateY(-3px) scale(1.02);
+    background: linear-gradient(135deg, #ff5e57, #ff884b);
 }
 
-/* Responsive for Tablets (iPads) */
-@media (max-width: 768px) {
+.error-msg {
+    color: #ff5e57;
+    font-size: 0.85rem;
+    margin-top: 2px;
+}
+
+/* Responsive Tablets */
+@media (max-width: 992px) {
     .fanscard-upload-container {
-        margin: 40px 20px;
+        margin: 50px 20px;
         padding: 25px;
     }
 }
 
-/* Responsive for Mobile Phones */
-@media (max-width: 480px) {
+/* Responsive Phones */
+@media (max-width: 576px) {
     .fanscard-upload-container h2 {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
     }
     .upload-btn {
-        padding: 10px;
+        padding: 12px;
         font-size: 0.95rem;
+    }
+    .fanscard-upload-form input,
+    .fanscard-upload-form textarea {
+        font-size: 0.95rem;
+        padding: 10px;
     }
 }
 </style>

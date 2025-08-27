@@ -6,7 +6,7 @@
     <div class="advanced-product-card">
 
         <div class="advanced-image-section">
-            <img src="{{ card.image.url }}" alt="{{ card.name }}" class="advanced-product-image">
+            <img src="{{ card.image.url }}" alt="{{ card.name }}" class="advanced-product-image" id="productImage">
         </div>
 
         <div class="advanced-info-section">
@@ -19,6 +19,10 @@
 
             <p class="advanced-product-quantity">In Stock: {{ card.quantity }}</p>
 
+            {% if card.quantity <= 5 %}
+            <p class="low-stock-alert">⚠ Hurry! Only {{ card.quantity }} left in stock!</p>
+            {% endif %}
+
             <div class="advanced-product-description">
                 <h3>Description</h3>
                 <p>{{ card.description }}</p>
@@ -30,11 +34,22 @@
     </div>
 
     {% if user.is_authenticated %}
-        <a href="{% url 'payment' %}" class="pay-link">💳 Make Payment</a>
+    <form method="GET" action="{% url 'payment' %}" class="quantity-form">
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" id="quantity" min="1" max="{{ card.quantity }}" value="1">
+        <button type="submit" class="pay-link">💳 Make Payment</button>
+    </form>
     {% else %}
-        <a href="{% url 'login' %}" class="pay-link">🔒 Kindly Login To Access This Page</a>
+    <a href="{% url 'login' %}" class="pay-link">🔒 Kindly Login To Access This Page</a>
     {% endif %}
 
+</div>
+
+<!-- Lightbox Modal -->
+<div id="lightboxModal" class="lightbox-modal">
+    <span class="close-modal">&times;</span>
+    <img class="lightbox-content" id="lightboxImage">
+    <div id="caption"></div>
 </div>
 
 <style>
@@ -79,7 +94,7 @@ body {
     max-height: 450px;
     object-fit: contain;
     transition: transform 0.4s ease;
-    cursor: zoom-in;
+    cursor: pointer;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(255, 60, 0, 0.2);
 }
@@ -126,7 +141,13 @@ body {
 .advanced-product-quantity {
     font-size: 1rem;
     color: #ccc;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
+}
+
+.low-stock-alert {
+    color: #f44336;
+    font-weight: bold;
+    margin-bottom: 15px;
 }
 
 .advanced-product-description h3 {
@@ -159,9 +180,23 @@ body {
     color: #fff;
 }
 
+.quantity-form {
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-form input[type="number"] {
+    width: 80px;
+    padding: 6px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
 .pay-link {
     display: inline-block;
-    margin-top: 30px;
     background: var(--primary-color, #0d6efd);
     color: #fff;
     padding: 0.9rem 1.8rem;
@@ -169,56 +204,82 @@ body {
     text-decoration: none;
     font-size: 1rem;
     font-weight: bold;
-    transition: background 0.3s;
+    transition: all 0.3s ease;
     box-shadow: 0 4px 14px rgba(13, 110, 253, 0.4);
 }
 
 .pay-link:hover {
     background: #0b5ed7;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(13, 110, 253, 0.6);
 }
 
-/* Responsive for Tablets */
-@media (max-width: 992px) {
-    .advanced-product-card {
-        flex-direction: column;
-    }
-    .advanced-image-section, .advanced-info-section {
-        flex: 1 1 100%;
-    }
-    .advanced-product-image {
-        max-height: 350px;
-    }
-    .advanced-product-title {
-        font-size: 2.2rem;
-    }
-    .price-badge {
-        font-size: 1.6rem;
-    }
+/* Lightbox Modal */
+.lightbox-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.95);
 }
 
-/* Responsive for Phones */
+.lightbox-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 60, 0, 0.5);
+}
+
+.close-modal {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: #ff4c29;
+}
+
+#caption {
+    text-align: center;
+    color: #bbb;
+    font-size: 1rem;
+    margin-top: 15px;
+}
+
+/* Responsive */
 @media (max-width: 576px) {
-    .advanced-product-page {
-        padding: 15px;
-    }
     .advanced-product-image {
         max-height: 250px;
     }
-    .advanced-product-title {
-        font-size: 1.8rem;
-    }
-    .advanced-product-type,
-    .advanced-product-quantity,
-    .advanced-product-description p {
-        font-size: 0.95rem;
-    }
-    .price-badge {
-        font-size: 1.4rem;
-        padding: 8px 16px;
-    }
-    .advanced-info-section {
-        padding: 20px;
-    }
 }
 </style>
+
+<script>
+    // Lightbox JS
+    var modal = document.getElementById("lightboxModal");
+    var img = document.getElementById("productImage");
+    var modalImg = document.getElementById("lightboxImage");
+    var captionText = document.getElementById("caption");
+    img.onclick = function(){
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+    var span = document.getElementsByClassName("close-modal")[0];
+    span.onclick = function() { 
+        modal.style.display = "none";
+    }
+</script>
 {% endblock %}

@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 
 {% block content %}
 <div class="upload-gallery-container">
-    <h2>📷 Upload New Gallery Image</h2>
+    <h2>📷 Upload New George Strait Gallery Image</h2>
     
     <form method="POST" enctype="multipart/form-data" class="upload-gallery-form">
         {% csrf_token %}
@@ -12,20 +12,24 @@
 </div>
 
 <style>
+/* Dark cinematic style matching fan cards */
 .upload-gallery-container {
     max-width: 500px;
     margin: 60px auto;
     padding: 30px;
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(255, 60, 0, 0.2);
+    backdrop-filter: blur(6px);
+    animation: fadeIn 1s ease-in-out;
 }
 
 .upload-gallery-container h2 {
     text-align: center;
     font-size: 1.8rem;
-    color: #222;
+    color: var(--accent-color, #ff3c00);
     margin-bottom: 25px;
+    text-shadow: 1px 1px 8px rgba(255, 60, 0, 0.6);
 }
 
 .upload-gallery-form {
@@ -37,39 +41,49 @@
 .upload-gallery-form label {
     font-weight: 600;
     margin-bottom: 5px;
+    color: #eee;
 }
 
 .upload-gallery-form input[type="file"],
 .upload-gallery-form input[type="text"],
 .upload-gallery-form textarea {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    padding: 12px 15px;
+    border: 1px solid #444;
+    border-radius: 10px;
     font-size: 1rem;
     outline: none;
-    transition: border 0.3s ease;
+    background: rgba(0,0,0,0.1);
+    color: #fff;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 
 .upload-gallery-form input[type="file"]:focus,
 .upload-gallery-form input[type="text"]:focus,
 .upload-gallery-form textarea:focus {
-    border-color: #0d6efd;
+    border-color: var(--accent-color, #ff3c00);
+    box-shadow: 0 0 8px rgba(255, 60, 0, 0.4);
 }
 
 .upload-btn {
     padding: 12px;
-    background: linear-gradient(135deg, #0d6efd, #084dbf);
+    background: linear-gradient(135deg, #ff3c00, #b23600);
     color: #fff;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 1rem;
     cursor: pointer;
     font-weight: bold;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .upload-btn:hover {
-    background: #084dbf;
+    background: #b23600;
+    box-shadow: 0 4px 12px rgba(255, 60, 0, 0.4);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Responsive for Tablets */

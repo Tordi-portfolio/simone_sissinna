@@ -225,9 +225,35 @@
       font-size: 12px;
     }
   }
+
+  /* Download All Button */
+  #download-all-btn {
+    display: inline-block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #ff5e57, #ff884b);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 60, 0, 0.4);
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+
+  #download-all-btn:hover {
+    background: linear-gradient(135deg, #d93800, #ff5e57);
+    transform: translateY(-2px);
+  }
 </style>
 
 <h2>💎 My Jason Momoa Premium Fan Cards</h2>
+
+<!-- Download All Button -->
+<div style="text-align:center;">
+    <button id="download-all-btn">📥 Download All Cards</button>
+</div>
 
 <div class="cards-container">
   {% for card in cards %}
@@ -288,10 +314,26 @@
     const card = document.getElementById(cardId);
     html2canvas(card).then(canvas => {
       const link = document.createElement('a');
-      link.download = 'keanu-fan-card.png';
+      link.download = `keanu-fan-card-${cardId}.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
     });
   }
+
+  // Download All Cards
+  document.getElementById('download-all-btn').addEventListener('click', async () => {
+    const cardWrappers = document.querySelectorAll('.card-wrapper');
+    for (let i = 0; i < cardWrappers.length; i++) {
+      const card = cardWrappers[i].querySelector('.card');
+      await html2canvas(card).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `keanu-fan-card-${i + 1}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+      await new Promise(resolve => setTimeout(resolve, 300)); // small delay to prevent browser blocking
+    }
+  });
 </script>
+
 {% endblock %}
