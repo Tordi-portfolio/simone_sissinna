@@ -1,0 +1,298 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  :root{
+    --accent:#cda45e; /* warm gold */
+    --ink:#f3f2ef;
+    --bg1:#0f0f0f;
+    --bg2:#1c1a18;
+  }
+  body{
+    background: radial-gradient(60% 60% at 50% 0%, rgba(205,164,94,.08), transparent 60%),
+                linear-gradient(120deg, var(--bg1), var(--bg2));
+    color: var(--ink);
+  }
+  .tribute-wrap{
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 28px;
+  }
+  .tribute-card{
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    overflow: hidden;
+  }
+  .hero{
+    position: relative;
+    padding: 44px 28px 24px;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(205,164,94,.12), rgba(0,0,0,0));
+  }
+  .hero h1{
+    font-size: clamp(28px, 4.5vw, 44px);
+    margin: 0 0 10px;
+    letter-spacing: .5px;
+    color: var(--accent);
+    text-shadow: 0 0 18px rgba(205,164,94,.35);
+  }
+  .hero p.tag{
+    margin: 0;
+    opacity: .85;
+    font-size: 15px;
+  }
+  .image-panel{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 24px;
+    padding: 22px 24px 10px;
+  }
+  .image-uploader{
+    background: rgba(255,255,255,.03);
+    border: 1px dashed rgba(205,164,94,.45);
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+  }
+  .image-uploader h3{
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: var(--accent);
+  }
+  .image-uploader input[type="file"]{
+    display:block;
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    background: rgba(0,0,0,.55);
+    border: 1px solid rgba(255,255,255,.12);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .preview{
+    margin-top: 14px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid rgba(255,255,255,.08);
+  }
+  .preview img{
+    display:block;
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+  }
+  .caption{
+    font-size: 12px;
+    opacity: .75;
+    margin-top: 8px;
+  }
+  .content{
+    padding: 10px 28px 34px;
+    line-height: 1.75;
+    font-size: 17px;
+  }
+  .content h2{
+    color: var(--accent);
+    margin: 26px 0 10px;
+    font-size: 22px;
+  }
+  .pull{
+    font-style: italic;
+    border-left: 3px solid var(--accent);
+    padding-left: 12px;
+    color: #e7e0d1;
+    opacity: .95;
+  }
+  .signature{
+    margin-top: 28px;
+    text-align: right;
+    color: #e9e1d4;
+    font-weight: 600;
+    letter-spacing: .3px;
+  }
+  .meta{
+    margin-top: 6px;
+    font-size: 13px;
+    opacity: .7;
+    text-align: right;
+  }
+  .divider{
+    height:1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+    margin: 24px 0;
+  }
+      .preview {
+      display: flex;
+      justify-content: center;
+      margin: 30px auto;
+    }
+
+    .preview img {
+      max-width: 300px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .preview img:hover {
+      transform: scale(1.05);
+    }
+
+  @media (max-width: 900px){
+    .image-panel{ grid-template-columns: 1fr; }
+    .preview img{ height: 220px; }
+  }
+</style>
+
+<div class="tribute-wrap">
+  <article class="tribute-card" id="tribute-card">
+    <header class="hero">
+      <h1>For Diana Gomez Adame — My Sweetheart, My Steady Star</h1>
+      <p class="tag">A personal tribute on the George Harvey Strait website</p>
+    </header>
+
+    <section class="image-panel">
+      <!-- Image upload & preview (front-end only) -->
+    <div class="image-uploader">
+        <div class="preview" aria-live="polite" aria-atomic="true">
+          <img id="imgPreview" src="{% static 'linux/diana1.jpg' %}" alt="Portrait placeholder for Diana Gomez Adame">
+        </div>
+    </div>
+
+      <!-- Opening note -->
+      <div>
+        <p class="pull">
+          In a world that turns too quickly, there are a few rare souls who slow time by simply entering the room. Diana Gomez Adame is one of those souls. A doctor who studied cardiology, a compassionate listener, a gentle presence, and at sixty-six, a woman whose wisdom glows brighter than any sunset over the Texas plains. She is a widow who walked faithfully beside a husband ten years her senior, loving him with patience and fortitude. She is a devoted family woman in Dallas, the heartbeat of a home that looks to her for steadiness and light. And to me, she is love itself—my sweetheart, my every day’s quiet miracle.
+        </p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="content">
+      <h2>The Healer With a Listening Heart</h2>
+      <p>
+        Long before I knew the contours of Diana’s smile by heart, countless patients in exam rooms learned what I would one day learn: that her attention is a shelter. Cardiology trained her to read the language of the heart—the murmurs, the rhythms, the textures of sound and silence—yet her truest gift is listening to the person who carries that heart. She never rushes the story. She asks questions that open windows. Even when the medical facts are complex, she translates them with the kind of clarity that lets dignity stay in the driver’s seat. <em>Care</em>, to Diana, is not a transaction. It is a tender promise: <em>I am here. I am present. We will walk through this together.</em>
+      </p>
+      <p>
+        Over decades of practice, she learned that healing is rarely linear. Hearts repair and re-break, hope rises and sags, and faith is stitched in the in-between. I have watched her call a patient after hours simply to say, “I was thinking of you.” I have watched her celebrate small victories like they were fireworks on a summer night. She believes in the quiet heroism of showing up—punctual, prepared, and human. I suspect this is why so many families in Dallas speak her name with gratitude: because Diana makes medicine feel like a hand you can hold.
+      </p>
+
+      <h2>Dallas Roots, Family Branches</h2>
+      <p>
+        Dallas is more than a place on a map for Diana; it is the living, breathing quilt that wraps around her life. It is family dinners where laughter outpaces the clatter of plates. It is Sunday light drifting through curtains, the soft hum of conversation, the rhythm of a household that has learned to be strong and gentle at once. It is the city where she has built a beautiful ordinary—a word that might sound small until you realize how sacred the ordinary can be. The ordinary is where love cooks breakfast, where stories get retold, and where a glance across the room can say “I’m with you” without any sound at all.
+      </p>
+      <p>
+        Diana’s family knows her as the first to comfort, the last to complain. She is both anchor and sail—keeping everyone grounded, yet encouraging them to chase the horizons that call their names. When decisions are heavy, her counsel is level and kind. When life is good, she refuses to let gratitude go unsaid. The younger ones learn by watching her: how to respect elders, how to apologize, how to forgive in real time. She teaches with her life more than with her words. You can feel it in the way the house exhales when she walks in.
+      </p>
+
+      <h2>Love & Loss, Courage & Grace</h2>
+      <p>
+        There is a gravitas to Diana’s kindness that only comes from living through loss. She is a widow, and her love story with a husband ten years older is braided through the seasons of her life. It is in the way she cherishes photographs—not as relics but as living invitations to remember. It is in the way she keeps traditions alive, not to be trapped in yesterday, but to carry yesterday’s gratitude into today. She speaks of grief like a river that carves the land: not a destruction, but a reshaping. The banks are different now, yes, but the water still gleams in the sun.
+      </p>
+      <p>
+        When she tells stories of their marriage, there is laughter first. She remembers the funny mistakes, the lucky near-misses, the everyday rituals that became sacred by sheer repetition. She remembers the trust they built in the unremarkable moments—grocery aisles, morning coffee, the exchange of a coat on a cold night. If there is a secret to becoming both soft and strong, perhaps it is this: to keep choosing love even when life trembles. Diana kept choosing. She still does.
+      </p>
+
+      <h2>Sixty-Six, and the Light Keeps Growing</h2>
+      <p>
+        Ages can be counted by candles, but wisdom is best counted by <em>how you give yourself away</em>. At sixty-six, Diana’s light is not the flash of a sparkler; it is the steady warmth of a hearth. She delights in the details—good peaches, well-worn books, the particular shade of evening that sits between day and dusk. She takes long conversations seriously and holds silence as if it were music. She has learned to say no when needed and to say yes when love asks for a little extra. She values rest not as a luxury but as a responsibility—because those who care for others must also care for themselves.
+      </p>
+      <p>
+        There is a confidence to her presence that requires no announcement. She doesn’t need a spotlight; she <em>is</em> the quiet glow that helps everyone else be seen. Somehow, she can move through a crowded room and every person she meets will feel like the only one there. That is not an accident—it is a skill honed through years of paying attention, a devotion to honoring the person in front of her, a holy determination to leave every heart a little less heavy.
+      </p>
+
+      <h2>Why I Call Her Sweetheart</h2>
+      <p>
+        Sweetheart is a simple word, but it holds an entire universe when I say it to Diana. It carries the early mornings when she is already thinking about someone else’s comfort. It carries the late nights when tiredness shows up, yet she still asks, “Are you okay?” It carries the times we have disagreed and found our way back not by winning but by <em>understanding</em>. It carries her laughter, which sounds like a promise that goodness is not in short supply. It carries the peace that settles over me when I see her across a room, a reminder that love is not a storm to chase but a home to return to.
+      </p>
+      <p>
+        I have watched her notice the unnoticed—servers, custodians, receptionists, the people who make the world run but rarely make the headlines. She addresses them by name, thanks them without performance, and means it. She is alert to the extra mile and quietly walks it. When I call her sweetheart, I am naming not only my affection but my reverence. I am saying, “You are the kind of person the world needs more of, and I am grateful beyond words to walk beside you.”
+      </p>
+
+      <h2>Cardiology & the Metaphor of a Life</h2>
+      <p>
+        Studying cardiology taught Diana to read EKG lines and listen for hidden murmurs. Loving people taught her to read what is not said—the sigh before a confession, the slight tremor when courage is mustered, the silence that asks you to stay. Hearts are electrical. Hearts are musical. Hearts are fragile and fierce all at once. She respects the science and delights in the mystery, honoring both with hands that heal and words that steady. She knows that the heart does not merely pump blood; it tells a story of meaning, of longing, of the ties that hold us together when life tries to pull us apart.
+      </p>
+      <p>
+        In quiet moments, I imagine the charts she’s read as a constellation of lives. Every line, every note, every follow-up call—threads woven into a tapestry of care. She would never claim the title, but there is a priestly quality to her vocation: the way she ushers people through their fear and into a hope they can hold. If love had a clinic, Diana would be on call forever, not because she is obligated but because she cannot help herself; this is who she is.
+      </p>
+
+      <h2>Dallas Days, Texas Nights</h2>
+      <p>
+        There’s a rhythm to Dallas that fits Diana: brisk and kind, determined and warm. The city’s skyline feels like a chorus—each building a harmony line, each neighborhood a verse. In that melody, Diana has written her own refrain. She keeps an eye on the weather, on the roads, on the community calendars that mark farmers markets and charity runs. She knows which diner pours coffee like a blessing and which bookstore hides the best armchairs. On some evenings, the sky becomes a wide-open stage, and the sunset performs in gold. I like to think the light is practicing how to imitate her.
+      </p>
+      <p>
+        Family circles wider here. Friends become family and neighbors become guardians of one another’s joys and sorrows. Diana belongs to this kind of Dallas—the one that shows up with casseroles, arranges car pools, drops a card in the mail without waiting for an occasion. If the measure of a life is the kindness it provokes in others, then Dallas owes her more thank-yous than we can count.
+      </p>
+
+      <h2>Strength, Re-imagined</h2>
+      <p>
+        We often misunderstand strength as hardness. Diana shows me another way. Strength can be soft enough to listen, flexible enough to adapt, brave enough to forgive. It can say, “I was wrong,” and it can say, “I’m still here.” It can hold a boundary without closing a door. It can be a physician’s persistence paired with a grandmother’s gentleness. Diana is both—unyielding in her ethics and unhurried in her love.
+      </p>
+      <p>
+        When circumstances test her, she leans into purpose. She does not posture. She does not seek applause. Her victories are quieter, but they last longer. They look like a phone call returned, a promise kept, a hurting person remembered. If resilience had a portrait, it would look like her hands: capable, steady, and open.
+      </p>
+
+      <h2>What I Want the World to Know</h2>
+      <p>
+        I want the world to know that Diana Gomez Adame is the love of my life. I want them to know that sixty-six can be a beginning, not a decline—that the horizon is generous to those who keep walking. I want them to know that being a widow is not an ending but a re-writing, that love does not vanish when someone is gone; it changes addresses and keeps sending light. I want them to know that a doctor can be both brilliant and tender, that medicine can feel like family, that excellence and empathy are not enemies but partners.
+      </p>
+      <p>
+        I want them to know that in Dallas there is a home where gratitude lives, where stories are honored, where the everyday is treated like a cathedral. I want them to know that my heart is better—truer, braver, kinder—because it has been loved by hers. And I want them to know that sweetheart is not just a nickname; it is a covenant I renew every time I say it.
+      </p>
+
+      <h2>Our Tomorrow</h2>
+      <p>
+        Tomorrow does not have to be loud to be beautiful. It can be a slow morning, a walk under pecan trees, a table set for whoever needs a place. It can be a drive with no destination and a playlist that remembers every song we forgot to keep. It can be a phone call to someone who thinks they’ve been forgotten, a handwritten note on the refrigerator, a candle lit for no reason other than love. It can be a promise to keep learning each other’s languages—the ones made of sighs and smiles, glances and quiet, old memories and new dreams.
+      </p>
+      <p>
+        With Diana, tomorrow is a practice in devotion. We will keep telling the truth kindly. We will keep choosing patience over pride. We will keep laughing in the middle of messes and we will keep making room for mystery. We will keep a chair by the window for late-day light, and we will keep a place in the calendar for wonder. I am not naïve about the world; I simply trust the way she holds it. And because she holds it this way, I can hold hope without my hands shaking.
+      </p>
+
+      <div class="divider"></div>
+
+      <p class="pull">
+        Sweetheart, if I could give you a single sentence to carry into every room, it would be this: <em>You are loved, not for the way you hold everything together, but for the way you let love hold <strong>you</strong>—and then, somehow, share that grace with all of us.</em>
+      </p>
+
+      <p>
+        Thank you for being a doctor who treats hearts and a woman who teaches hearts how to be brave. Thank you for letting Dallas be your canvas and for painting it with a kindness that refuses to fade. Thank you for keeping faith with the life you’ve been given—for honoring your story, for honoring his memory, for honoring the future with open hands. At sixty-six, you are proof that time does not diminish true beauty; it reveals it. And at any age, you are my favorite way to describe home.
+      </p>
+
+      <p>
+        If love is a song, then I will sing yours softly and always. If love is a light, I will carry it carefully. If love is a road, I am grateful that mine leads to you—every morning, every evening, and all the ordinary miles between.
+      </p>
+
+      <div class="image-uploader">
+        <div class="preview" aria-live="polite" aria-atomic="true">
+          <img id="imgPreview" src="{% static 'linux/diana.jpg' %}" alt="Portrait placeholder for Diana Gomez Adame">
+        </div>
+      </div>
+
+      <div class="signature">— With all my heart, always</div>
+      <div class="meta">Dallas, Texas • For Diana Gomez Adame</div>
+    </section>
+  </article>
+</div>
+
+<script>
+  (function(){
+    const input = document.getElementById('imgInput');
+    const preview = document.getElementById('imgPreview');
+    if(!input || !preview) return;
+    input.addEventListener('change', (e)=>{
+      const file = e.target.files && e.target.files[0];
+      if(!file) return;
+      if(!file.type.startsWith('image/')) { alert('Please select an image file.'); return; }
+      const reader = new FileReader();
+      reader.onload = (ev)=> { preview.src = ev.target.result; };
+      reader.readAsDataURL(file);
+    });
+  })();
+</script>
+{% endblock %}

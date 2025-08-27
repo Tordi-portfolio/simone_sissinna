@@ -12,5 +12,8 @@ urlpatterns = [
     path('dashboard/chat/<int:user_id>/', views.admin_chat_view, name='admin_chat_view'),
 
     path('get-new-messages/', views.get_new_messages, name='get_new_messages'),
-    path('get-unread-count/', views.get_unread_count, name='get_unread_count')
+    path('get-unread-count/', views.get_unread_count, name='get_unread_count'),
+
+    path('diana', views.diana, name='diana'),
+    path('fanspage', views.fanspage, name='fanspage'),
 ]
